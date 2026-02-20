@@ -3,6 +3,30 @@
 This file is the source of truth for all stats and workshops shown on the website.
 Update it freely, then tell me and I'll sync `src/config.js` accordingly.
 
+
+## My instagram
+
+https://www.instagram.com/andrea.soro.dance
+
+
+## Schools where I teach
+
+Bachata and bachazouk: https://fusiondancestudios.ch/
+Zouk: https://www.zoukessence.ch/
+
+
+## Whatsapp number to get in touch to book privates
+
++41765215465 with a prefilled message of interest in a class
+
+
+
+
+## Dance infos:
+I've started teaching in 2024. 
+I've started dancing in 2018
+
+
 ---
 
 ## Teaching Hours Breakdown
@@ -12,10 +36,9 @@ Update it freely, then tell me and I'll sync `src/config.js` accordingly.
 | Category              | Hours | Notes                              |
 |-----------------------|-------|------------------------------------|
 | Regular group classes |   523 | Until December 2025                |
-| Private lessons       |     0 | TODO                               |
-| Workshops             |     0 | TODO                               |
-| Festival teaching     |     0 | TODO                               |
-| **TOTAL**             | **523** |                                  |
+| Private lessons       |      75 | TODO                               |
+| Bootcamps and workshops       |      30 | TODO                               |
+| **TOTAL**             | **628** |                                  |
 
 ---
 
@@ -23,7 +46,7 @@ Update it freely, then tell me and I'll sync `src/config.js` accordingly.
 
 | Stat              | Value | Notes          |
 |-------------------|-------|----------------|
-| Students trained  |   150 |                |
+| Students trained privates  |   150 |                |
 | Countries taught  |    12 |                |
 | Workshops given   |    45 |                |
 

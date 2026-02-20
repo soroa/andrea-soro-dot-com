@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Instagram, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { Instagram, Linkedin, Mail, ArrowRight, MessageCircle, ExternalLink } from 'lucide-react';
 import { CONFIG, STATS, WORKSHOPS } from '../config';
 
 const Counter = ({ end, label }) => {
@@ -131,17 +131,19 @@ export default function DancerPage() {
             className="text-lg mb-12 max-w-sm leading-relaxed"
             style={{ color: '#78716c' }}
           >
-            Over a decade of teaching, traveling, and transforming the way
-            people experience movement.
+            Dancing since 2018. Teaching since 2024. Bringing Bachata &amp; Zouk
+            to students across Switzerland and beyond.
           </p>
 
           <div className="flex flex-wrap gap-4">
             <a
-              href={`mailto:${CONFIG.email}`}
+              href={CONFIG.socials.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-white text-xs tracking-[0.2em] uppercase px-8 py-4 transition-colors hover:opacity-90"
               style={{ background: '#c2440e' }}
             >
-              Get in Touch <Mail size={13} />
+              Book a Private <MessageCircle size={13} />
             </a>
             <a
               href={CONFIG.socials.instagram}
@@ -170,7 +172,7 @@ export default function DancerPage() {
               className="font-bold italic mb-4"
               style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fefaf5' }}
             >
-              A Decade of Movement
+              By the Numbers
             </h2>
             <div className="h-px w-16 mx-auto" style={{ background: '#c2440e' }} />
           </div>
@@ -179,6 +181,49 @@ export default function DancerPage() {
             <Counter end={STATS.studentsTrained} label="Students Trained" />
             <Counter end={STATS.countriesTaught} label="Countries Taught" />
             <Counter end={STATS.workshopsGiven}  label="Workshops Given" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHERE I TEACH ── */}
+      <section className="py-20 border-b" style={{ background: '#fefaf5', borderColor: '#e7d7c1' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-10">
+            <h2
+              className="font-bold italic mb-3"
+              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)', color: '#1c1917' }}
+            >
+              Where I Teach
+            </h2>
+            <div className="h-px w-16" style={{ background: '#c2440e' }} />
+          </div>
+          <div className="grid sm:grid-cols-2 gap-4 max-w-xl">
+            <a
+              href="https://fusiondancestudios.ch/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start justify-between p-6 border transition-colors hover:border-[#c2440e]"
+              style={{ borderColor: '#e7d7c1' }}
+            >
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase mb-1" style={{ color: '#c2440e' }}>Bachata &amp; Bachazouk</p>
+                <p className="font-medium" style={{ color: '#1c1917' }}>Fusion Dance Studios</p>
+              </div>
+              <ExternalLink size={14} className="mt-1 flex-shrink-0 transition-colors group-hover:text-[#c2440e]" style={{ color: '#c8b8a8' }} />
+            </a>
+            <a
+              href="https://www.zoukessence.ch/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-start justify-between p-6 border transition-colors hover:border-[#c2440e]"
+              style={{ borderColor: '#e7d7c1' }}
+            >
+              <div>
+                <p className="text-xs tracking-[0.2em] uppercase mb-1" style={{ color: '#c2440e' }}>Zouk</p>
+                <p className="font-medium" style={{ color: '#1c1917' }}>Zouk Essence</p>
+              </div>
+              <ExternalLink size={14} className="mt-1 flex-shrink-0 transition-colors group-hover:text-[#c2440e]" style={{ color: '#c8b8a8' }} />
+            </a>
           </div>
         </div>
       </section>
