@@ -121,10 +121,10 @@ export default function DancerPage() {
               color: '#1c1917',
             }}
           >
-            Where<br />
-            Movement<br />
-            <span style={{ color: '#c2440e' }}>Becomes</span><br />
-            Art.
+            Systems<br />
+            thinking,<br />
+            <span style={{ color: '#c2440e' }}>applied to</span><br />
+            movement.
           </h1>
 
           <p
