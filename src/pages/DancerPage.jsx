@@ -121,10 +121,9 @@ export default function DancerPage() {
               color: '#1c1917',
             }}
           >
-            Systems<br />
-            thinking,<br />
+            SYSTEM THINKING<br />
             <span style={{ color: '#c2440e' }}>applied to</span><br />
-            movement.
+            MOVEMENT.
           </h1>
 
           <p
