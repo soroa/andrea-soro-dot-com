@@ -4,11 +4,10 @@ import { Github, Linkedin, Mail, BookOpen, ArrowRight } from 'lucide-react';
 import { CONFIG } from '../config';
 
 const STACK = [
-  { cat: 'LANGUAGES', items: 'TypeScript  ·  Python  ·  Go' },
-  { cat: 'FRONTEND',  items: 'React  ·  Next.js  ·  Tailwind CSS' },
-  { cat: 'BACKEND',   items: 'Node.js  ·  FastAPI  ·  GraphQL' },
-  { cat: 'DATABASE',  items: 'PostgreSQL  ·  Redis  ·  MongoDB' },
-  { cat: 'DEVOPS',    items: 'Docker  ·  AWS  ·  Vercel  ·  GitHub Actions' },
+  { cat: 'LANGUAGE',   items: 'Kotlin' },
+  { cat: 'MOBILE',     items: 'Android Development  ·  Jetpack Compose' },
+  { cat: 'PLATFORM',   items: 'Kotlin Multiplatform' },
+  { cat: 'CURRENTLY',  items: 'Beekeeper.io' },
 ];
 
 // ── Animation helpers ──────────────────────────────────────────────────────
@@ -161,9 +160,9 @@ export default function CoderPage() {
 
           <div className="space-y-1 mb-12 text-sm" style={{ color: '#555', ...anim(480) }}>
             <div><span style={{ color: '#3a5a3a' }}>/**</span></div>
-            <div>&nbsp;* Full-stack developer. <span style={{ color: '#22c55e' }}>Code poet.</span> Systems thinker.</div>
-            <div>&nbsp;* Building things that live at the intersection</div>
-            <div>&nbsp;* of logic, craft, and human experience.</div>
+            <div>&nbsp;* Android developer. <span style={{ color: '#22c55e' }}>Kotlin enthusiast.</span></div>
+            <div>&nbsp;* Building cross-platform mobile experiences</div>
+            <div>&nbsp;* at Beekeeper.io.</div>
             <div><span style={{ color: '#3a5a3a' }}> */</span></div>
           </div>
 
@@ -211,7 +210,19 @@ export default function CoderPage() {
                   style={{ gridTemplateColumns: '130px 1fr' }}
                 >
                   <span className="text-xs tracking-widest" style={{ color: '#22c55e' }}>{row.cat}</span>
-                  <span className="text-sm" style={{ color: '#888' }}>{row.items}</span>
+                  {row.cat === 'CURRENTLY' ? (
+                    <a
+                      href={CONFIG.socials.company}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-sm hover:text-green-500 transition-colors"
+                      style={{ color: '#888' }}
+                    >
+                      {row.items}
+                    </a>
+                  ) : (
+                    <span className="text-sm" style={{ color: '#888' }}>{row.items}</span>
+                  )}
                 </div>
               </RevealLeft>
             ))}

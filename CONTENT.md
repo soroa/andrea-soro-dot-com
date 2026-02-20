@@ -1,12 +1,44 @@
-# Dance Stats & Workshop History
+# General
+
+Email: andreasoro7@gmail.com
+
+
+# Dev section
+
+
+## LinkedIn
+
+https://www.linkedin.com/in/andrea-soro-7a110a83/
+
+
+## Tech stack
+
+Android Development, Kotlin Multiplatform, Jetpack Compose
+
+## Company I work for  (Dev/Coder Section)
+
+https://www.beekeeper.io/
+
+
+
+## Github
+https://github.com/soroa
+
+
+# Dance Section
 
 This file is the source of truth for all stats and workshops shown on the website.
 Update it freely, then tell me and I'll sync `src/config.js` accordingly.
 
 
-## My instagram
+
+
+## My dancer instagram
 
 https://www.instagram.com/andrea.soro.dance
+
+
+
 
 
 ## Schools where I teach
