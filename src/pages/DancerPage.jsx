@@ -327,6 +327,36 @@ export default function DancerPage() {
         </div>
       </section>
 
+      {/* ── FEEDBACK ── */}
+      <section className="py-24 border-t" style={{ background: '#1c1917', borderColor: '#2a2018' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <Reveal className="max-w-xl">
+            <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ color: '#c2440e' }}>
+              Student Feedback
+            </p>
+            <h2
+              className="font-bold italic mb-6 leading-tight"
+              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: '#fefaf5' }}
+            >
+              How Was Your Class?
+            </h2>
+            <p className="text-lg mb-10 leading-relaxed" style={{ color: '#a08060' }}>
+              Took a class with me? I'd love to hear how it went — honest feedback
+              helps me grow as a teacher.
+            </p>
+            <a
+              href="https://forms.gle/h8PzwSd8arvYE1Uv9"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-black text-xs tracking-[0.2em] uppercase px-8 py-4 transition-colors hover:opacity-90"
+              style={{ background: '#c2440e', color: '#fefaf5' }}
+            >
+              Leave a Review <ArrowRight size={13} />
+            </a>
+          </Reveal>
+        </div>
+      </section>
+
       {/* ── NEWSLETTER CTA ── */}
       <section className="py-24 border-t" style={{ background: '#fff8f0', borderColor: '#e7d7c1' }}>
         <div className="max-w-5xl mx-auto px-6">
