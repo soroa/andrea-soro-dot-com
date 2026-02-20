@@ -1,0 +1,301 @@
+import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Instagram, Linkedin, Mail, ArrowRight } from 'lucide-react';
+import { CONFIG, STATS, WORKSHOPS } from '../config';
+
+const Counter = ({ end, label }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = 0;
+    const duration = 2000;
+    const increment = end / (duration / 16);
+    const timer = setInterval(() => {
+      start += increment;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 16);
+    return () => clearInterval(timer);
+  }, [end]);
+
+  return (
+    <div className="text-center group">
+      <div
+        className="font-bold leading-none mb-3 transition-colors duration-300"
+        style={{
+          fontFamily: '"Cormorant Garamond", serif',
+          fontSize: 'clamp(2.8rem, 5vw, 4rem)',
+          color: '#fefaf5',
+        }}
+      >
+        {count.toLocaleString()}+
+      </div>
+      <div
+        className="text-[10px] tracking-[0.25em] uppercase"
+        style={{ fontFamily: '"DM Sans", sans-serif', color: '#a08060' }}
+      >
+        {label}
+      </div>
+    </div>
+  );
+};
+
+export default function DancerPage() {
+  const navigate = useNavigate();
+  const [scrolled, setScrolled] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener('scroll', onScroll);
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
+
+  return (
+    <div
+      className="min-h-screen bg-[#fefaf5] text-[#1c1917] selection:bg-[#c2440e] selection:text-white"
+      style={{ fontFamily: '"DM Sans", sans-serif' }}
+    >
+
+      {/* ── NAV ── */}
+      <nav
+        className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+          scrolled
+            ? 'bg-[#fefaf5]/92 backdrop-blur-md border-b py-4'
+            : 'py-6 bg-transparent'
+        }`}
+        style={{ borderColor: scrolled ? '#e7d7c1' : 'transparent' }}
+      >
+        <div className="max-w-5xl mx-auto px-6 flex justify-between items-center">
+          <div
+            className="text-2xl italic"
+            style={{ fontFamily: '"Cormorant Garamond", serif', color: '#1c1917' }}
+          >
+            Andrea Soro
+          </div>
+          <div className="flex items-center gap-5">
+            <button
+              onClick={() => navigate('/code')}
+              className="text-xs tracking-[0.15em] uppercase transition-colors border px-3 py-1.5 hidden sm:block hover:border-[#c2440e] hover:text-[#c2440e]"
+              style={{ color: '#78716c', borderColor: '#e7d7c1' }}
+            >
+              The Developer
+            </button>
+            <a href={CONFIG.socials.instagram} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#c2440e]" style={{ color: '#78716c' }}>
+              <Instagram size={17} />
+            </a>
+            <a href={CONFIG.socials.linkedin} target="_blank" rel="noopener noreferrer" className="transition-colors hover:text-[#c2440e]" style={{ color: '#78716c' }}>
+              <Linkedin size={17} />
+            </a>
+            <a href={`mailto:${CONFIG.email}`} className="transition-colors hover:text-[#c2440e]" style={{ color: '#78716c' }}>
+              <Mail size={17} />
+            </a>
+          </div>
+        </div>
+      </nav>
+
+      {/* ── HERO ── */}
+      <header className="min-h-screen flex items-center pt-24 relative overflow-hidden">
+        {/* Warm glows */}
+        <div
+          className="absolute top-1/4 right-0 w-[700px] h-[700px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle at center, rgba(194,68,14,0.07) 0%, transparent 65%)' }}
+        />
+        <div
+          className="absolute bottom-0 left-1/4 w-[500px] h-[500px] rounded-full pointer-events-none"
+          style={{ background: 'radial-gradient(circle at center, rgba(180,83,9,0.05) 0%, transparent 65%)' }}
+        />
+
+        <div className="max-w-5xl mx-auto px-6 relative z-10 py-24">
+          <p
+            className="text-xs tracking-[0.35em] uppercase mb-10"
+            style={{ color: 'rgba(194,68,14,0.7)' }}
+          >
+            Bachata &amp; Zouk Specialist
+          </p>
+
+          <h1
+            className="font-bold italic leading-[0.88] mb-10"
+            style={{
+              fontFamily: '"Cormorant Garamond", serif',
+              fontSize: 'clamp(4rem, 10vw, 9rem)',
+              color: '#1c1917',
+            }}
+          >
+            Where<br />
+            Movement<br />
+            <span style={{ color: '#c2440e' }}>Becomes</span><br />
+            Art.
+          </h1>
+
+          <p
+            className="text-lg mb-12 max-w-sm leading-relaxed"
+            style={{ color: '#78716c' }}
+          >
+            Over a decade of teaching, traveling, and transforming the way
+            people experience movement.
+          </p>
+
+          <div className="flex flex-wrap gap-4">
+            <a
+              href={`mailto:${CONFIG.email}`}
+              className="flex items-center gap-2 text-white text-xs tracking-[0.2em] uppercase px-8 py-4 transition-colors hover:opacity-90"
+              style={{ background: '#c2440e' }}
+            >
+              Get in Touch <Mail size={13} />
+            </a>
+            <a
+              href={CONFIG.socials.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 text-xs tracking-[0.2em] uppercase px-8 py-4 border transition-colors hover:border-[#c2440e] hover:text-[#c2440e]"
+              style={{ borderColor: '#e7d7c1', color: '#78716c' }}
+            >
+              <Instagram size={13} /> Follow Along
+            </a>
+          </div>
+
+          {/* Scroll hint */}
+          <div className="mt-20 flex items-center gap-3 text-xs tracking-widest" style={{ color: '#c8b8a8' }}>
+            <div className="h-10 w-px" style={{ background: 'linear-gradient(to bottom, rgba(194,68,14,0.5), transparent)' }} />
+            Scroll to discover
+          </div>
+        </div>
+      </header>
+
+      {/* ── STATS ── */}
+      <section className="py-24" style={{ background: '#1c1917' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2
+              className="font-bold italic mb-4"
+              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fefaf5' }}
+            >
+              A Decade of Movement
+            </h2>
+            <div className="h-px w-16 mx-auto" style={{ background: '#c2440e' }} />
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+            <Counter end={STATS.teachingHours}  label="Teaching Hours" />
+            <Counter end={STATS.studentsTrained} label="Students Trained" />
+            <Counter end={STATS.countriesTaught} label="Countries Taught" />
+            <Counter end={STATS.workshopsGiven}  label="Workshops Given" />
+          </div>
+        </div>
+      </section>
+
+      {/* ── WORKSHOP GALLERY ── */}
+      <section className="py-24">
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="mb-12">
+            <h2
+              className="font-bold italic mb-3"
+              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#1c1917' }}
+            >
+              Workshop History
+            </h2>
+            <div className="h-px w-16 mb-5" style={{ background: '#c2440e' }} />
+            <p className="max-w-md" style={{ color: '#78716c' }}>
+              A legacy of workshops across the globe, bringing Bachata &amp; Zouk to
+              every corner of the world.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            {WORKSHOPS.length > 0 ? WORKSHOPS.map((w) => (
+              <div
+                key={w.id}
+                className="relative aspect-[3/4] overflow-hidden cursor-pointer group rounded-sm"
+                style={{ background: '#efe5d4' }}
+              >
+                <div
+                  className="absolute inset-0 flex flex-col justify-end p-5"
+                  style={{ background: 'linear-gradient(to top, rgba(28,25,23,0.8), transparent)' }}
+                >
+                  <span
+                    className="text-xs font-bold mb-1"
+                    style={{ color: '#c2440e', fontFamily: '"DM Sans", sans-serif' }}
+                  >
+                    {w.year}
+                  </span>
+                  <h3
+                    className="font-bold italic text-xl leading-tight text-white"
+                    style={{ fontFamily: '"Cormorant Garamond", serif' }}
+                  >
+                    {w.title}
+                  </h3>
+                  <p className="text-xs mt-1" style={{ color: 'rgba(255,255,255,0.55)' }}>{w.city}</p>
+                </div>
+              </div>
+            )) : (
+              [1, 2, 3, 4].map(i => (
+                <div
+                  key={i}
+                  className="aspect-[3/4] rounded-sm animate-pulse"
+                  style={{ background: '#f0e8da', border: '1px solid #e7d7c1' }}
+                />
+              ))
+            )}
+          </div>
+        </div>
+      </section>
+
+      {/* ── NEWSLETTER CTA ── */}
+      <section className="py-24 border-t" style={{ background: '#fff8f0', borderColor: '#e7d7c1' }}>
+        <div className="max-w-5xl mx-auto px-6">
+          <div className="max-w-xl">
+            <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ color: '#c2440e' }}>
+              On Substack
+            </p>
+            <h2
+              className="font-bold italic mb-6 leading-tight"
+              style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2.5rem, 5vw, 4rem)', color: '#1c1917' }}
+            >
+              Bits &amp; Body Beats
+            </h2>
+            <p className="text-lg mb-10 leading-relaxed" style={{ color: '#78716c' }}>
+              Exploring the parallels between system architecture and dance
+              biomechanics. Join the newsletter for insights on tech, flow, and
+              the art of connection.
+            </p>
+            <a
+              href={CONFIG.socials.substack}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 text-white text-xs tracking-[0.2em] uppercase px-8 py-4 transition-colors"
+              style={{ background: '#1c1917' }}
+              onMouseEnter={e => e.currentTarget.style.background = '#c2440e'}
+              onMouseLeave={e => e.currentTarget.style.background = '#1c1917'}
+            >
+              Read on Substack <ArrowRight size={13} />
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FOOTER ── */}
+      <footer className="py-8 border-t" style={{ background: '#fefaf5', borderColor: '#e7d7c1' }}>
+        <div className="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center gap-4">
+          <span
+            className="italic text-sm"
+            style={{ fontFamily: '"Cormorant Garamond", serif', color: '#78716c' }}
+          >
+            Dance. Code. Repeat.
+          </span>
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => navigate('/code')}
+              className="text-xs tracking-widest uppercase transition-colors hover:text-[#c2440e]"
+              style={{ color: '#78716c' }}
+            >
+              Switch to developer →
+            </button>
+            <p className="text-[10px] tracking-widest uppercase" style={{ color: '#d4c5b0' }}>
+              &copy; {new Date().getFullYear()} Andrea Soro
+            </p>
+          </div>
+        </div>
+      </footer>
+
+    </div>
+  );
+}
