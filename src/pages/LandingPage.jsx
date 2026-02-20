@@ -115,7 +115,7 @@ export default function LandingPage() {
               color: '#c2440e',
             }}
           >
-            ENTER STUDIO →
+            ENTER →
           </div>
         </div>
       </div>
