@@ -283,7 +283,7 @@ export default function DancerPage() {
         </div>
       </section>
 
-      {/* ── WORKSHOP GALLERY ── */}
+      {/* ── WORKSHOP GALLERY (hidden for now, uncomment when ready) ──
       <section className="py-24">
         <div className="max-w-5xl mx-auto px-6">
           <Reveal className="mb-12">
@@ -326,6 +326,7 @@ export default function DancerPage() {
           </div>
         </div>
       </section>
+      ── */}
 
       {/* ── FEEDBACK ── */}
       <section className="py-24 border-t" style={{ background: '#1c1917', borderColor: '#2a2018' }}>
