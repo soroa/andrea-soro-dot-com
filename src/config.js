@@ -13,11 +13,23 @@ export const CONFIG = {
 export const STATS = {
   teachingHours: 628,
   studentsTrained: 150,
-  countriesTaught: 12,
-  workshopsGiven: 45,
 };
 
 // Add your workshops here: { id, title, city, year }
 export const WORKSHOPS = [
   // { id: '1', title: 'Sensual Bachata', city: 'Milan', year: 2024 },
+];
+
+// Private class slots
+export const PRIVATE_SLOTS = [
+  { id: 's01', date: '2026-03-16', time: '12:00', duration: 60 },
+  { id: 's02', date: '2026-03-16', time: '18:00', duration: 60 },
+  { id: 's03', date: '2026-03-17', time: '12:00', duration: 60 },
+  { id: 's04', date: '2026-03-17', time: '20:00', duration: 60 },
+  { id: 's05', date: '2026-03-17', time: '21:00', duration: 60 },
+  { id: 's06', date: '2026-03-18', time: '12:00', duration: 60 },
+  { id: 's07', date: '2026-03-19', time: '21:00', duration: 60 },
+  { id: 's08', date: '2026-03-20', time: '18:00', duration: 60 },
+  { id: 's09', date: '2026-03-20', time: '19:00', duration: 60 },
+  { id: 's10', date: '2026-03-20', time: '20:00', duration: 60 },
 ];

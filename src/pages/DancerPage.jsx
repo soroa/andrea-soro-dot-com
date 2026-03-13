@@ -1,7 +1,7 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Instagram, Linkedin, Mail, ArrowRight, MessageCircle, ExternalLink } from 'lucide-react';
-import { CONFIG, STATS, WORKSHOPS } from '../config';
+import { Instagram, Linkedin, Mail, ArrowRight, MessageCircle, ExternalLink, Calendar, Clock } from 'lucide-react';
+import { CONFIG, STATS, WORKSHOPS, PRIVATE_SLOTS } from '../config';
 
 // ── Animation helpers ──────────────────────────────────────────────────────
 
@@ -94,6 +94,185 @@ const Counter = ({ end, label, delay = 0 }) => {
     </div>
   );
 };
+
+// ── Slot helpers ─────────────────────────────────────────────────────────
+
+const DAY_NAMES = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+const MONTH_NAMES = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+function formatSlotDate(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  return `${DAY_NAMES[d.getDay()]} ${d.getDate()} ${MONTH_NAMES[d.getMonth()]}`;
+}
+
+function getMonday(dateStr) {
+  const d = new Date(dateStr + 'T00:00:00');
+  const day = d.getDay();
+  const diff = d.getDate() - day + (day === 0 ? -6 : 1);
+  return new Date(d.setDate(diff)).toISOString().slice(0, 10);
+}
+
+function groupSlotsByWeek(slots) {
+  const map = new Map();
+  for (const slot of slots) {
+    const key = getMonday(slot.date);
+    if (!map.has(key)) map.set(key, []);
+    map.get(key).push(slot);
+  }
+  return Array.from(map.values());
+}
+
+function buildWhatsAppUrl(slot, style) {
+  const msg = slot
+    ? `Hi Andrea, I'd like to book a private ${style} class on ${formatSlotDate(slot.date)} at ${slot.time}. Is it still available?`
+    : `Hi Andrea, I'd like to book a private ${style} class. None of the current slots work for me — could we find another time?`;
+  return `https://wa.me/41765215465?text=${encodeURIComponent(msg)}`;
+}
+
+// ── Private Slot Picker ──────────────────────────────────────────────────
+
+const STYLES = ['Bachata', 'Zouk'];
+
+function PrivateSlotPicker() {
+  const [selected, setSelected] = useState(null);
+  const [style, setStyle] = useState('Bachata');
+  const weeks = useMemo(() => groupSlotsByWeek(PRIVATE_SLOTS), []);
+
+  return (
+    <section id="book" className="py-24 border-b" style={{ background: '#1c1917', borderColor: '#2a2018' }}>
+      <div className="max-w-5xl mx-auto px-6">
+        <Reveal>
+          <p className="text-xs tracking-[0.35em] uppercase mb-6" style={{ color: '#c2440e' }}>
+            Private Classes
+          </p>
+          <h2
+            className="font-bold italic mb-3 leading-tight"
+            style={{ fontFamily: '"Cormorant Garamond", serif', fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#fefaf5' }}
+          >
+            Book a Slot
+          </h2>
+          <div className="h-px w-16 mb-6" style={{ background: '#c2440e' }} />
+          <p className="max-w-md mb-10" style={{ color: '#a08060' }}>
+            Pick an available time below and send me a message to confirm. 1-hour private session, Bachata or Zouk.
+          </p>
+          <div className="flex gap-2">
+            {STYLES.map((s) => (
+              <button
+                key={s}
+                onClick={() => setStyle(s)}
+                className="text-[10px] tracking-[0.2em] uppercase px-5 py-2 border transition-all duration-200"
+                style={{
+                  borderColor: style === s ? '#c2440e' : '#3a3028',
+                  background: style === s ? '#c2440e' : 'transparent',
+                  color: style === s ? '#fefaf5' : '#78716c',
+                }}
+              >
+                {s}
+              </button>
+            ))}
+          </div>
+        </Reveal>
+
+        <div className="space-y-10 mt-10">
+          {weeks.map((weekSlots, wi) => (
+            <Reveal key={wi} delay={wi * 120}>
+              <p
+                className="text-[10px] tracking-[0.3em] uppercase mb-4"
+                style={{ color: '#78716c' }}
+              >
+                Week {wi + 1}
+              </p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {weekSlots.map((slot) => {
+                  const isSelected = selected === slot.id;
+                  return (
+                    <div
+                      key={slot.id}
+                      className="flex items-center justify-between p-5 border transition-all duration-200 cursor-pointer"
+                      style={{
+                        borderColor: isSelected ? '#c2440e' : '#2a2018',
+                        background: isSelected ? 'rgba(194,68,14,0.08)' : 'transparent',
+                      }}
+                      onClick={() => setSelected(isSelected ? null : slot.id)}
+                    >
+                      <div>
+                        <div className="flex items-center gap-2 mb-2">
+                          <Calendar size={13} style={{ color: isSelected ? '#c2440e' : '#78716c' }} />
+                          <span
+                            className="text-sm font-medium"
+                            style={{ color: isSelected ? '#fefaf5' : '#c8b8a8' }}
+                          >
+                            {formatSlotDate(slot.date)}
+                          </span>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <Clock size={13} style={{ color: isSelected ? '#c2440e' : '#78716c' }} />
+                          <span
+                            className="text-sm"
+                            style={{ color: isSelected ? '#fefaf5' : '#c8b8a8' }}
+                          >
+                            {slot.time} · {slot.duration} min
+                          </span>
+                        </div>
+                      </div>
+                      {isSelected && (
+                        <a
+                          href={buildWhatsAppUrl(slot, style)}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                          className="flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-4 py-2 transition-colors hover:opacity-90 shrink-0"
+                          style={{ background: '#c2440e', color: '#fefaf5' }}
+                        >
+                          Request <MessageCircle size={11} />
+                        </a>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </Reveal>
+          ))}
+
+          {/* "Later" option */}
+          <Reveal delay={weeks.length * 120}>
+            <div
+              onClick={() => setSelected(selected === 'later' ? null : 'later')}
+              className="w-full flex items-center justify-between p-5 border border-dashed transition-all duration-200 mt-3 cursor-pointer"
+              style={{
+                borderColor: selected === 'later' ? '#c2440e' : '#2a2018',
+                background: selected === 'later' ? 'rgba(194,68,14,0.08)' : 'transparent',
+              }}
+            >
+              <div className="flex items-center gap-2">
+                <Calendar size={13} style={{ color: selected === 'later' ? '#c2440e' : '#78716c' }} />
+                <span
+                  className="text-sm font-medium"
+                  style={{ color: selected === 'later' ? '#fefaf5' : '#c8b8a8' }}
+                >
+                  None of these work — contact me for other times
+                </span>
+              </div>
+              {selected === 'later' && (
+                <a
+                  href={buildWhatsAppUrl(null, style)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={(e) => e.stopPropagation()}
+                  className="flex items-center gap-2 text-[10px] tracking-[0.2em] uppercase px-4 py-2 transition-colors hover:opacity-90 shrink-0"
+                  style={{ background: '#c2440e', color: '#fefaf5' }}
+                >
+                  Request <MessageCircle size={11} />
+                </a>
+              )}
+            </div>
+          </Reveal>
+        </div>
+
+      </div>
+    </section>
+  );
+}
 
 // ── Page ──────────────────────────────────────────────────────────────────
 
@@ -188,15 +367,13 @@ export default function DancerPage() {
           </p>
 
           <div className="flex flex-wrap gap-4" style={anim(900)}>
-            <a
-              href={CONFIG.socials.whatsapp}
-              target="_blank"
-              rel="noopener noreferrer"
+            <button
+              onClick={() => document.getElementById('book')?.scrollIntoView({ behavior: 'smooth' })}
               className="flex items-center gap-2 text-white text-xs tracking-[0.2em] uppercase px-8 py-4 transition-colors hover:opacity-90"
               style={{ background: '#c2440e' }}
             >
               Book a Private <MessageCircle size={13} />
-            </a>
+            </button>
             <a
               href={CONFIG.socials.instagram}
               target="_blank"
@@ -227,11 +404,9 @@ export default function DancerPage() {
             </h2>
             <div className="h-px w-16 mx-auto" style={{ background: '#c2440e' }} />
           </Reveal>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
+          <div className="grid grid-cols-2 gap-10 max-w-md mx-auto">
             <Counter end={STATS.teachingHours}  label="Teaching Hours"   delay={0} />
             <Counter end={STATS.studentsTrained} label="Students Trained" delay={150} />
-            <Counter end={STATS.countriesTaught} label="Countries Taught" delay={300} />
-            <Counter end={STATS.workshopsGiven}  label="Workshops Given"  delay={450} />
           </div>
         </div>
       </section>
@@ -282,6 +457,9 @@ export default function DancerPage() {
           </div>
         </div>
       </section>
+
+      {/* ── BOOK A PRIVATE ── */}
+      <PrivateSlotPicker />
 
       {/* ── WORKSHOP GALLERY (hidden for now, uncomment when ready) ──
       <section className="py-24">
