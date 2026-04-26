@@ -1,0 +1,414 @@
+/* CSS Reset & Base */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: #1a1a1a;
+  background: #ffffff;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* Layout */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Navigation */
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.nav-logo {
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.nav-links {
+  display: flex;
+  gap: 24px;
+  font-size: 0.875rem;
+}
+
+.nav-links a {
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+  color: #1a1a1a;
+}
+
+.lang-toggle {
+  color: #999;
+  font-size: 0.875rem;
+}
+
+.lang-toggle span {
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.lang-toggle span.active {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+.nav-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #1a1a1a;
+}
+
+/* Homepage Hero */
+.hero {
+  margin-bottom: 48px;
+  padding: 48px 0;
+}
+
+.hero h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+
+.tagline {
+  font-size: 1.125rem;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.subtags {
+  font-size: 0.875rem;
+  color: #999;
+}
+
+/* Masonry Grid */
+.masonry {
+  column-count: 3;
+  column-gap: 16px;
+}
+
+.masonry-item {
+  break-inside: avoid;
+  margin-bottom: 16px;
+}
+
+/* Project Cards */
+.project-card {
+  display: block;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.project-card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* Case Study Page */
+.case-header {
+  padding: 48px 0;
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 48px;
+}
+
+.case-header .role {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  margin-bottom: 16px;
+}
+
+.case-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.case-header p {
+  font-size: 1.125rem;
+  color: #666;
+  max-width: 800px;
+}
+
+.case-content {
+  max-width: 800px;
+  margin: 0 auto 64px;
+}
+
+.case-content p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 32px;
+}
+
+.case-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 48px;
+  margin-bottom: 16px;
+}
+
+.image-full {
+  margin: 48px 0;
+}
+
+.image-full img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.image-row {
+  display: grid;
+  gap: 16px;
+  margin: 48px 0;
+}
+
+.image-row.cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.image-row.cols-3 {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.image-row img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.video-full {
+  margin: 48px 0;
+}
+
+.video-full video {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.case-nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 32px 0;
+  border-top: 1px solid #e5e5e5;
+  margin-top: 64px;
+  font-size: 0.875rem;
+}
+
+.case-nav a {
+  color: #666;
+  transition: color 0.2s ease;
+}
+
+.case-nav a:hover {
+  color: #1a1a1a;
+}
+
+/* About Page */
+.about-content {
+  padding: 48px 0;
+}
+
+.about-profile {
+  display: flex;
+  gap: 32px;
+  margin-bottom: 48px;
+  align-items: flex-start;
+}
+
+.about-profile img {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.about-profile div {
+  flex: 1;
+}
+
+.about-profile h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+
+.about-profile p {
+  font-size: 1.0625rem;
+  line-height: 1.7;
+  color: #444;
+  margin-bottom: 16px;
+}
+
+.about-skills {
+  margin-bottom: 48px;
+}
+
+.about-skills h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.skills-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skills-list span {
+  padding: 8px 16px;
+  border: 1px solid #e5e5e5;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  color: #666;
+}
+
+.about-contact h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.contact-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-list a {
+  font-size: 1.0625rem;
+  color: #1a1a1a;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  display: inline-block;
+  transition: border-color 0.2s ease;
+}
+
+.contact-list a:hover {
+  border-bottom-color: #1a1a1a;
+}
+
+/* Footer */
+.footer {
+  padding: 32px 0;
+  border-top: 1px solid #e5e5e5;
+  text-align: center;
+  font-size: 0.8125rem;
+  color: #999;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .masonry {
+    column-count: 2;
+  }
+
+  .about-profile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .masonry {
+    column-count: 1;
+  }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e5e5;
+    padding: 16px 24px;
+    gap: 16px;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .nav-menu-btn {
+    display: block;
+  }
+
+  .hero h1 {
+    font-size: 1.5rem;
+  }
+
+  .tagline {
+    font-size: 1rem;
+  }
+
+  .case-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .case-header p {
+    font-size: 1rem;
+  }
+
+  .image-row.cols-2,
+  .image-row.cols-3 {
+    grid-template-columns: 1fr;
+  }
+
+  .about-profile h1 {
+    font-size: 1.5rem;
+  }
+}
