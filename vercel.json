@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/leon/:path*", "destination": "/leon/:path*" },
+    { "source": "/((?!leon/).*)", "destination": "/index.html" }
+  ]
+}
