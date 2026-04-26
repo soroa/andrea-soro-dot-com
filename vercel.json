@@ -1,6 +1,8 @@
 {
-  "routes": [
-    { "handle": "filesystem" },
-    { "src": "/(.*)", "dest": "/index.html" }
+  "redirects": [
+    { "source": "/leon", "destination": "/leon/" }
+  ],
+  "rewrites": [
+    { "source": "/leon/", "destination": "/leon/index.html" }
   ]
 }
