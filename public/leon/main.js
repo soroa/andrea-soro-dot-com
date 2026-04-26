@@ -2,6 +2,61 @@
   "use strict";
 
   // ============================================
+  // 0. PASSWORD GATE
+  // ============================================
+
+  const HASH = "69021b5a2ae56e47f1ba3dd9f8998df1271053d3021c506334add5ea4e764728";
+
+  async function sha256(str) {
+    const buf = new TextEncoder().encode(str);
+    const hash = await crypto.subtle.digest("SHA-256", buf);
+    return Array.from(new Uint8Array(hash)).map(b => b.toString(16).padStart(2, "0")).join("");
+  }
+
+  function checkAuth() {
+    if (sessionStorage.getItem("portfolio-auth") === "1") {
+      document.body.classList.remove("locked");
+      return;
+    }
+
+    document.body.classList.add("locked");
+
+    const overlay = document.createElement("div");
+    overlay.className = "pw-overlay";
+    overlay.innerHTML = `
+      <div class="pw-box">
+        <h2>Passwort / Password</h2>
+        <form class="pw-form">
+          <input type="password" class="pw-input" placeholder="Passwort eingeben" autofocus>
+          <button type="submit" class="pw-btn">→</button>
+        </form>
+        <p class="pw-error"></p>
+      </div>
+    `;
+    document.body.prepend(overlay);
+
+    const form = overlay.querySelector(".pw-form");
+    const input = overlay.querySelector(".pw-input");
+    const error = overlay.querySelector(".pw-error");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const h = await sha256(input.value);
+      if (h === HASH) {
+        sessionStorage.setItem("portfolio-auth", "1");
+        overlay.remove();
+        document.body.classList.remove("locked");
+      } else {
+        error.textContent = "Falsches Passwort / Wrong password";
+        input.value = "";
+        input.focus();
+      }
+    });
+  }
+
+  checkAuth();
+
+  // ============================================
   // 1. LANGUAGE MANAGEMENT
   // ============================================
 

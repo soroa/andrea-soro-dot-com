@@ -1,3 +1,69 @@
+/* Password Gate */
+body.locked > *:not(.pw-overlay) {
+  display: none !important;
+}
+
+.pw-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pw-box {
+  text-align: center;
+  max-width: 340px;
+  width: 100%;
+  padding: 0 20px;
+}
+
+.pw-box h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 24px;
+  color: #1a1a1a;
+}
+
+.pw-form {
+  display: flex;
+  gap: 8px;
+}
+
+.pw-input {
+  flex: 1;
+  padding: 10px 14px;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 0.95rem;
+  border: 1.5px solid #d0d0d0;
+  border-radius: 6px;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.pw-input:focus {
+  border-color: #1a1a1a;
+}
+
+.pw-btn {
+  padding: 10px 16px;
+  font-size: 1.1rem;
+  background: #1a1a1a;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pw-error {
+  margin-top: 12px;
+  font-size: 0.85rem;
+  color: #c0392b;
+  min-height: 1.2em;
+}
+
 /* CSS Reset & Base */
 *,
 *::before,
