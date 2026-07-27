@@ -60,19 +60,27 @@ h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-
 .quote footer{margin-top:20px;color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.12em}
 .big-cta{padding:120px 0;background:linear-gradient(180deg,#000,#17120A)}
 .big-cta h2{text-align:center}
-.booking-intro{color:var(--mut);font-size:16px;line-height:1.7;max-width:660px;margin:0 auto 48px;text-align:center}
-.calendly-inline-widget{border:1px solid #262626;background:var(--pnl)}
-.booking-fallback{margin-top:22px;text-align:center;font-size:13px;color:#4C4C4C}
-.booking-fallback a{color:var(--acc);text-decoration:none}
-.booking-fallback a:hover{text-decoration:underline}
+.booking-intro{color:var(--mut);font-size:16px;line-height:1.7;max-width:620px;margin:0 auto 40px;text-align:center}
 .placeholder{border:1px dashed #262626;padding:20px 24px;color:#4C4C4C;font-size:13px;font-style:italic;max-width:760px}
+.nav-right{display:flex;align-items:center;gap:22px}
+.ig{color:var(--mut);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.04em}
+.ig:hover{color:var(--acc)}
 footer.site{border-top:1px solid #1A1A1A;padding:30px 0;color:#3A3A3A;font-size:13px;display:flex;justify-content:space-between}
+footer.site a{color:var(--mut);text-decoration:none}
+footer.site a:hover{color:var(--acc)}
 @media(max-width:900px){.split,.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}section{padding:66px 0}.scarcity{margin:16px 0 0}footer.site{flex-direction:column;gap:10px}}
+@media(max-width:560px){.ig{display:none}.big-cta .pill{display:block;margin:0 auto 12px!important}}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <nav><div class="logo">MATT JAMESON</div><a href="#apply" class="pill">Learn more</a></nav>
+  <nav>
+    <div class="logo">MATT JAMESON</div>
+    <div class="nav-right">
+      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="ig">@advicefrommatt</a>
+      <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Book a call</a>
+    </div>
+  </nav>
 </div>
 
 <div class="hero"><div class="wrap">
@@ -141,19 +149,19 @@ footer.site{border-top:1px solid #1A1A1A;padding:30px 0;color:#3A3A3A;font-size:
         <div class="tag">Flagship · 3 days · in person</div><h3>Bootcamp with Matt</h3>
         <p>An intense, 3-day live in-person training designed to get you taking massive amounts of action with direct in-person feedback from Matt himself. Limited to a small number of students per program — the ultimate no-BS program to level up your game and destroy your sticking points.</p>
         <div class="note">Enquire now to learn more about upcoming bootcamp programs in a city near you.</div>
-        <a href="#apply" class="pill">Enquire now</a>
+        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Enquire now</a>
       </div>
       <div class="card">
         <div class="tag">Custom · in person</div><h3>1-on-1 Live</h3>
         <p>Want to work live in person 1-on-1 with Matt right by your side? Custom packages for those who want the absolute most amount of direct attention and feedback. Subject to availability.</p>
         <div class="note">Apply for custom 1-on-1 coaching.</div>
-        <a href="#apply" class="pill out">Apply now</a>
+        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill out">Apply now</a>
       </div>
       <div class="card">
         <div class="tag">Ongoing · remote</div><h3>Online</h3>
         <p>Ongoing accountability, support and feedback week by week. By analyzing your interactions, text conversations and dates, you get tailored missions every week — the guessing game removed entirely.</p>
         <div class="note">Subject to availability.</div>
-        <a href="#apply" class="pill out">Apply now</a>
+        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill out">Apply now</a>
       </div>
     </div>
   </section>
@@ -173,18 +181,16 @@ footer.site{border-top:1px solid #1A1A1A;padding:30px 0;color:#3A3A3A;font-size:
     <div class="eyebrow" style="text-align:center">Apply</div>
     <h2>Book a strategy session call.</h2>
     <p class="booking-intro">Please select a time and answer all questions on the following page to apply for a Strategy Session Call. On the call, we will discuss your current situation when it comes to dating and meeting women, your goals for this area of your life, and your eligibility to work directly with Matt Jameson. If your application for the call is accepted, you will receive a Zoom link either via email or Instagram a few minutes before the starting time, which you can use to join the call.</p>
-
-    <!-- Calendly inline widget begin -->
-    <div class="calendly-inline-widget"
-         data-url="https://calendly.com/mattjamesoncoach/strategy?hide_gdpr_banner=1&background_color=0D0D0D&text_color=EDEDED&primary_color=F5A524"
-         style="min-width:320px;height:1040px"></div>
-    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
-    <!-- Calendly inline widget end -->
-
-    <p class="booking-fallback">Widget not loading? <a href="https://calendly.com/mattjamesoncoach/strategy">Open the booking page directly →</a></p>
+    <div style="text-align:center">
+      <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Book your call</a>
+      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="pill out" style="margin-left:10px">@advicefrommatt</a>
+    </div>
   </div>
 </div>
 
-<div class="wrap"><footer class="site"><span>© 2026 Matt Jameson</span><span>[ email ] · [ Instagram ] · [ YouTube ]</span></footer></div>
+<div class="wrap"><footer class="site">
+  <span>© 2026 Matt Jameson</span>
+  <span>[ email ] · <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer">Instagram</a> · [ YouTube ]</span>
+</footer></div>
 </body>
 </html>
