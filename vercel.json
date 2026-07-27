@@ -1,8 +1,10 @@
 {
   "redirects": [
-    { "source": "/leon", "destination": "/leon/" }
+    { "source": "/leon", "destination": "/leon/" },
+    { "source": "/matt", "destination": "/matt/" }
   ],
   "rewrites": [
-    { "source": "/leon/", "destination": "/leon/index.html" }
+    { "source": "/leon/", "destination": "/leon/index.html" },
+    { "source": "/matt/", "destination": "/matt/index.html" }
   ]
 }
