@@ -63,21 +63,40 @@ h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-
 .booking-intro{color:var(--mut);font-size:16px;line-height:1.7;max-width:620px;margin:0 auto 40px;text-align:center}
 .placeholder{border:1px dashed #262626;padding:20px 24px;color:#4C4C4C;font-size:13px;font-style:italic;max-width:760px}
 .nav-right{display:flex;align-items:center;gap:22px}
-.ig{color:var(--mut);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.04em}
+.ico{width:18px;height:18px;flex:none;display:block}
+.ig{display:inline-flex;align-items:center;gap:8px;color:var(--mut);text-decoration:none;font-size:13px;font-weight:700;letter-spacing:.04em}
 .ig:hover{color:var(--acc)}
 footer.site{border-top:1px solid #1A1A1A;padding:30px 0;color:#3A3A3A;font-size:13px;display:flex;justify-content:space-between}
 footer.site a{color:var(--mut);text-decoration:none}
 footer.site a:hover{color:var(--acc)}
+.foot-links{display:inline-flex;align-items:center;gap:8px}
+.foot-links a{display:inline-flex;align-items:center;gap:7px}
+.foot-links .ico{width:15px;height:15px}
+.ig-pill{display:inline-flex;align-items:center;gap:9px}
+.ig-pill .ico{width:16px;height:16px}
 @media(max-width:900px){.split,.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}section{padding:66px 0}.scarcity{margin:16px 0 0}footer.site{flex-direction:column;gap:10px}}
-@media(max-width:560px){.ig{display:none}.big-cta .pill{display:block;margin:0 auto 12px!important}}
+@media(max-width:560px){
+  .ig span{display:none}
+  .nav-right{gap:14px}
+  .big-cta .pill{display:flex;align-items:center;justify-content:center;width:max-content;margin:0 auto 12px}
+}
 </style>
 </head>
 <body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
+    <rect x="2.5" y="2.5" width="19" height="19" rx="5.4"/>
+    <circle cx="12" cy="12" r="4.4"/>
+    <circle cx="17.6" cy="6.4" r="1.15" fill="currentColor" stroke="none"/>
+  </symbol>
+</svg>
+
 <div class="wrap">
   <nav>
     <div class="logo">MATT JAMESON</div>
     <div class="nav-right">
-      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="ig">@advicefrommatt</a>
+      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="ig" aria-label="Matt Jameson on Instagram"><svg class="ico" aria-hidden="true"><use href="#ig"/></svg><span>@advicefrommatt</span></a>
       <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Book a call</a>
     </div>
   </nav>
@@ -183,14 +202,14 @@ footer.site a:hover{color:var(--acc)}
     <p class="booking-intro">Please select a time and answer all questions on the following page to apply for a Strategy Session Call. On the call, we will discuss your current situation when it comes to dating and meeting women, your goals for this area of your life, and your eligibility to work directly with Matt Jameson. If your application for the call is accepted, you will receive a Zoom link either via email or Instagram a few minutes before the starting time, which you can use to join the call.</p>
     <div style="text-align:center">
       <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Book your call</a>
-      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="pill out" style="margin-left:10px">@advicefrommatt</a>
+      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="pill out ig-pill" style="margin-left:10px"><svg class="ico" aria-hidden="true"><use href="#ig"/></svg>@advicefrommatt</a>
     </div>
   </div>
 </div>
 
 <div class="wrap"><footer class="site">
   <span>© 2026 Matt Jameson</span>
-  <span>[ email ] · <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer">Instagram</a> · [ YouTube ]</span>
+  <span class="foot-links">[ email ] · <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" aria-label="Matt Jameson on Instagram"><svg class="ico" aria-hidden="true"><use href="#ig"/></svg>@advicefrommatt</a> · [ YouTube ]</span>
 </footer></div>
 </body>
 </html>
