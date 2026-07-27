@@ -22,7 +22,10 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0
 h1{font-size:clamp(40px,7.6vw,104px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-.045em;max-width:15ch}
 h1 em{font-style:normal;color:var(--acc)}
 .sub{font-size:20px;color:var(--mut);margin:30px 0 36px;max-width:520px;line-height:1.55}
-.scarcity{display:inline-flex;align-items:center;gap:10px;border:1px solid #262626;padding:10px 18px;border-radius:100px;font-size:13px;color:var(--mut);margin-left:14px}
+.hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.pill-ico{display:inline-flex;align-items:center;gap:9px}
+.pill-ico .ico{width:17px;height:17px}
+.scarcity{display:inline-flex;align-items:center;gap:10px;border:1px solid #262626;padding:10px 18px;border-radius:100px;font-size:13px;color:var(--mut);margin-top:26px}
 .dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc)}
 .ticker{border-top:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;overflow:hidden;padding:16px 0;background:var(--pnl)}
 .ticker div{display:flex;gap:56px;white-space:nowrap;animation:slide 26s linear infinite;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:#3E3E3E}
@@ -90,7 +93,9 @@ footer.site a:hover{color:var(--acc)}
 .js .reveal.in{opacity:1;transform:none;
   transition:opacity .75s cubic-bezier(.22,.7,.3,1) var(--d,0s),transform .75s cubic-bezier(.22,.7,.3,1) var(--d,0s)}
 .hero h1,.hero .sub,.hero .pill,.hero .scarcity{animation:rise .9s cubic-bezier(.22,.7,.3,1) both}
-.hero .sub{animation-delay:.1s}.hero .pill{animation-delay:.2s}.hero .scarcity{animation-delay:.28s}
+.hero .sub{animation-delay:.1s}.hero .pill{animation-delay:.2s}
+.hero .hero-cta .pill:nth-child(2){animation-delay:.28s}
+.hero .scarcity{animation-delay:.36s}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){
   .js .reveal,.js .reveal.in{opacity:1;transform:none;transition:none}
@@ -123,7 +128,12 @@ footer.site a:hover{color:var(--acc)}
 <div class="hero"><div class="wrap">
   <h1>Ready to improve your <em>results with women?</em></h1>
   <p class="sub">Coaching with Matt Jameson. Three days, real interactions, direct feedback in the moment — when it counts.</p>
-  <a href="#about" class="pill">Learn more</a>
+  <div class="hero-cta">
+    <a href="#about" class="pill">Learn more</a>
+    <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="pill out pill-ico">
+      <svg class="ico" aria-hidden="true"><use href="#ig"/></svg>Check my infield
+    </a>
+  </div>
   <span class="scarcity"><span class="dot"></span>Next bootcamp: [City], [Month] — [N] spots left</span>
 </div></div>
 
