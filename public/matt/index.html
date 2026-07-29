@@ -11,31 +11,22 @@
 :root{--bg:#000;--fg:#fff;--acc:#F5A524;--mut:#7B7B7B;--pnl:#0D0D0D}
 *{margin:0;padding:0;box-sizing:border-box}
 body{background:var(--bg);color:var(--fg);font-family:Archivo,sans-serif;overflow-x:hidden}
-.wrap{max-width:1240px;margin:0 auto;padding:0 26px}
+.wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 26px}
 nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
 .logo{font-weight:900;font-size:19px;letter-spacing:-.02em}
 .pill{display:inline-block;background:var(--acc);color:#000;padding:12px 24px;border-radius:100px;text-decoration:none;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
 .pill:hover{filter:brightness(1.12)}
 .pill.out{background:none;color:var(--acc);border:1px solid #2A2A2A}
-.hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden}
+.hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden;padding:70px 0}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 40%,#1C1C1C 0%,#000 70%);z-index:-1}
 h1{font-size:clamp(40px,7.6vw,104px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-.045em;max-width:15ch}
 h1 em{font-style:normal;color:var(--acc)}
-.sub{font-size:20px;color:var(--mut);margin:30px 0 36px;max-width:520px;line-height:1.55}
+.sub{font-size:clamp(19px,2.3vw,27px);font-weight:700;color:var(--fg);letter-spacing:-.015em;margin:28px 0 0}
+.hero-lede{color:var(--mut);font-size:17px;line-height:1.7;max-width:680px;margin:24px 0 36px}
 .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
-.pill-ico{display:inline-flex;align-items:center;gap:9px}
-.pill-ico .ico{width:17px;height:17px}
-.scarcity{display:inline-flex;align-items:center;gap:10px;border:1px solid #262626;padding:10px 18px;border-radius:100px;font-size:13px;color:var(--mut);margin-top:26px}
-.dot{width:7px;height:7px;border-radius:50%;background:var(--acc);box-shadow:0 0 10px var(--acc)}
-.ticker{border-top:1px solid #1A1A1A;border-bottom:1px solid #1A1A1A;overflow:hidden;padding:16px 0;background:var(--pnl)}
-.ticker div{display:flex;gap:56px;white-space:nowrap;animation:slide 26s linear infinite;font-weight:700;font-size:14px;text-transform:uppercase;letter-spacing:.1em;color:#3E3E3E}
-@keyframes slide{to{transform:translateX(-50%)}}
-.ticker span{color:var(--acc)}
 section{padding:110px 0}
 .eyebrow{color:var(--acc);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.2em;margin-bottom:20px}
 h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.035em;margin-bottom:26px}
-.lede{color:var(--mut);font-size:17px;line-height:1.7;max-width:680px}
-.lede+.lede{margin-top:18px}
 .split{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-top:44px}
 .half{background:var(--pnl);padding:44px 38px}
 .half.b{background:var(--acc);color:#000}
@@ -47,11 +38,6 @@ h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-
 .stat{background:var(--pnl);padding:40px 26px}
 .num{font-size:52px;font-weight:900;color:var(--acc);letter-spacing:-.04em}
 .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--mut);margin-top:8px}
-.map{position:relative;background:var(--pnl);border:1px solid #1A1A1A;aspect-ratio:2.2/1;margin-top:44px;overflow:hidden}
-.map .note{position:absolute;left:24px;bottom:20px;font-size:12px;color:#333;text-transform:uppercase;letter-spacing:.14em}
-.pin{position:absolute;width:8px;height:8px;border-radius:50%;background:var(--acc);box-shadow:0 0 14px var(--acc);animation:pulse 2.6s ease-in-out infinite}
-.pin::after{content:attr(data-city);position:absolute;left:14px;top:-4px;font-size:11px;color:#8E8E8E;white-space:nowrap;letter-spacing:.08em;text-transform:uppercase}
-@keyframes pulse{50%{transform:scale(1.7);opacity:.55}}
 .cards{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2px;margin-top:44px}
 .card{background:var(--pnl);padding:40px 34px;display:flex;flex-direction:column}
 .card.lead{background:linear-gradient(160deg,#1F1A0D,#0D0D0D);border:1px solid #2B2314}
@@ -60,48 +46,28 @@ h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-
 .card .note{color:#4C4C4C;font-size:13px;line-height:1.6;margin-bottom:24px}
 .card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:18px}
 .card .pill{align-self:flex-start}
-.quote{background:var(--pnl);padding:38px 34px;font-size:18px;line-height:1.6}
-.quote footer{margin-top:20px;color:var(--mut);font-size:13px;text-transform:uppercase;letter-spacing:.12em}
-.big-cta{padding:120px 0;background:linear-gradient(180deg,#000,#17120A)}
-.big-cta h2{text-align:center}
-.booking-intro{color:var(--mut);font-size:16px;line-height:1.7;max-width:620px;margin:0 auto 40px;text-align:center}
 .placeholder{border:1px dashed #262626;padding:20px 24px;color:#4C4C4C;font-size:13px;font-style:italic;max-width:760px}
-.nav-right{display:flex;align-items:center;gap:22px}
 .ico{width:18px;height:18px;flex:none;display:block}
-.ig{display:inline-flex;align-items:center;color:var(--mut);text-decoration:none;transition:color .2s}
-.ig:hover{color:var(--acc)}
-.ig .ico{width:21px;height:21px}
-.ig-round{display:inline-flex;align-items:center;justify-content:center;width:47px;height:47px;border-radius:50%;
-  border:1px solid #2A2A2A;color:var(--acc);text-decoration:none;vertical-align:middle;margin-left:10px;transition:.2s}
-.ig-round:hover{border-color:var(--acc);background:var(--acc);color:#000}
-.ig-round .ico{width:20px;height:20px}
 footer.site{border-top:1px solid #1A1A1A;padding:30px 0;color:#3A3A3A;font-size:13px;display:flex;justify-content:space-between}
 footer.site a{color:var(--mut);text-decoration:none}
 footer.site a:hover{color:var(--acc)}
 .foot-links{display:inline-flex;align-items:center;gap:8px}
 .foot-links a{display:inline-flex;align-items:center}
 .foot-links .ico{width:17px;height:17px}
-@media(max-width:900px){.split,.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}section{padding:66px 0}.scarcity{margin:16px 0 0}footer.site{flex-direction:column;gap:10px}}
-@media(max-width:560px){
-  .nav-right{gap:16px}
-  .big-cta .pill{display:flex;align-items:center;justify-content:center;width:max-content;margin:0 auto 14px}
-  .ig-round{margin-left:0}
-}
+@media(max-width:900px){.split,.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}section{padding:66px 0}footer.site{flex-direction:column;gap:10px}}
 
 /* --- scroll reveal ---------------------------------------------------------- */
 .js .reveal{opacity:0;transform:translateY(24px)}
 .js .reveal.in{opacity:1;transform:none;
   transition:opacity .75s cubic-bezier(.22,.7,.3,1) var(--d,0s),transform .75s cubic-bezier(.22,.7,.3,1) var(--d,0s)}
-.hero h1,.hero .sub,.hero .pill,.hero .scarcity{animation:rise .9s cubic-bezier(.22,.7,.3,1) both}
-.hero .sub{animation-delay:.1s}.hero .pill{animation-delay:.2s}
-.hero .hero-cta .pill:nth-child(2){animation-delay:.28s}
-.hero .scarcity{animation-delay:.36s}
+.hero h1,.hero .sub,.hero .hero-lede,.hero .pill{animation:rise .9s cubic-bezier(.22,.7,.3,1) both}
+.hero .sub{animation-delay:.1s}
+.hero .hero-lede{animation-delay:.2s}
+.hero .pill{animation-delay:.3s}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 @media(prefers-reduced-motion:reduce){
   .js .reveal,.js .reveal.in{opacity:1;transform:none;transition:none}
-  .hero h1,.hero .sub,.hero .pill,.hero .scarcity{animation:none}
-  .ticker div{animation:none}
-  .pin{animation:none}
+  .hero h1,.hero .sub,.hero .hero-lede,.hero .pill{animation:none}
 }
 </style>
 </head>
@@ -118,76 +84,27 @@ footer.site a:hover{color:var(--acc)}
 <div class="wrap">
   <nav>
     <div class="logo">MATT JAMESON</div>
-    <div class="nav-right">
-      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="ig" aria-label="Matt Jameson on Instagram"><svg class="ico" aria-hidden="true"><use href="#ig"/></svg></a>
-      <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Book a call</a>
-    </div>
   </nav>
 </div>
 
 <div class="hero"><div class="wrap">
-  <h1>Ready to improve your <em>results with women?</em></h1>
-  <p class="sub">Coaching with Matt Jameson. Three days, real interactions, direct feedback in the moment — when it counts.</p>
+  <h1>Are you ready to improve your <em>results with women?</em></h1>
+  <p class="sub">Coaching with Matt Jameson</p>
+  <p class="hero-lede">For over 7 years as a Men's Dating Coach, I'm proud to have helped men all over the world improve their results with women and achieve their dream dating lives. Men just like you. With a combination of both live in-person coaching and remote online coaching, I've helped men in all different parts of the world, including Europe, the United States, Australia, Latin America, Asia, South Africa and more. If you're ready to stop wasting time and start taking action to reach your goals with women and dating, professional coaching could be the next step to help you get there.</p>
   <div class="hero-cta">
-    <a href="#about" class="pill">Learn more</a>
-    <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="pill out pill-ico">
-      <svg class="ico" aria-hidden="true"><use href="#ig"/></svg>Check my infield
-    </a>
+    <a href="#programs" class="pill">Learn more</a>
   </div>
-  <span class="scarcity"><span class="dot"></span>Next bootcamp: [City], [Month] — [N] spots left</span>
-</div></div>
-
-<div class="ticker"><div>
-  <span>7+ years coaching</span>· 19 countries ·<span>350+ students</span>· in-field coaching ·<span>3,000+ hours</span>· small groups only ·
-  <span>7+ years coaching</span>· 19 countries ·<span>350+ students</span>· in-field coaching ·<span>3,000+ hours</span>· small groups only ·
 </div></div>
 
 <div class="wrap">
-  <section id="about">
-    <div class="eyebrow reveal">About</div>
-    <h2 class="reveal">Why work with me.</h2>
-    <p class="lede reveal">For over 7 years as a Men's Dating Coach, I'm proud to have helped men all over the world improve their results with women and achieve their dream dating lives. Men just like you. With a combination of both live in-person coaching and remote online coaching, I've helped men in all different parts of the world, including Europe, the United States, Australia, Latin America, Asia, South Africa and more.</p>
-    <p class="lede reveal">If you're ready to stop wasting time and start taking action to reach your goals with women and dating, professional coaching could be the next step to help you get there.</p>
+  <section id="about" style="padding-bottom:0">
     <!-- PROVISIONAL FIGURES — invented for layout only. Must be replaced with
          Matt's real numbers before this page is shown to prospects. -->
-    <div class="stats" style="margin-top:48px">
+    <div class="stats">
       <div class="stat reveal" style="--d:0.0s"><div class="num" data-num="7+">7+</div><div class="lbl">Years</div></div>
       <div class="stat reveal" style="--d:0.09s"><div class="num" data-num="350+">350+</div><div class="lbl">Students coached</div></div>
       <div class="stat reveal" style="--d:0.18s"><div class="num" data-num="19">19</div><div class="lbl">Countries</div></div>
       <div class="stat reveal" style="--d:0.27s"><div class="num" data-num="42">42</div><div class="lbl">Cities</div></div>
-    </div>
-    <div class="reveal" style="margin-top:44px"><a href="#programs" class="pill">See the programs</a></div>
-  </section>
-
-  <section>
-    <div class="eyebrow reveal">The gap</div>
-    <h2 class="reveal">Where you are.<br>Where you'll be.</h2>
-    <div class="placeholder reveal">[ Draft copy — not from Matt's text. Confirm or replace both columns. ]</div>
-    <div class="split">
-      <div class="half reveal" style="--d:0.0s"><h3>Right now</h3><ul>
-        <li>Overthinking every opener</li><li>Waiting for the "right" moment</li>
-        <li>Consuming content instead of acting</li><li>No idea what you're doing wrong</li>
-      </ul></div>
-      <div class="half b reveal" style="--d:0.12s"><h3>After three days</h3><ul>
-        <li>Approaching without the freeze</li><li>Reading interest accurately</li>
-        <li>A repeatable process, not tricks</li><li>Feedback loop you can run alone</li>
-      </ul></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="eyebrow reveal">Worldwide</div>
-    <h2 class="reveal">Cities coached in.</h2>
-    <div class="map reveal">
-      <div class="pin" style="left:22%;top:38%" data-city="New York"></div>
-      <div class="pin" style="left:12%;top:46%;animation-delay:.4s" data-city="LA"></div>
-      <div class="pin" style="left:47%;top:30%;animation-delay:.8s" data-city="London"></div>
-      <div class="pin" style="left:53%;top:36%;animation-delay:1.2s" data-city="Berlin"></div>
-      <div class="pin" style="left:30%;top:70%;animation-delay:1.6s" data-city="Medellín"></div>
-      <div class="pin" style="left:74%;top:44%;animation-delay:2s" data-city="Bangkok"></div>
-      <div class="pin" style="left:86%;top:76%;animation-delay:2.4s" data-city="Sydney"></div>
-      <div class="pin" style="left:55%;top:80%;animation-delay:2.8s" data-city="Cape Town"></div>
-      <div class="note">[ swap for a real dark-styled world map SVG ]</div>
     </div>
   </section>
 
@@ -217,25 +134,20 @@ footer.site a:hover{color:var(--acc)}
   </section>
 
   <section>
-    <div class="eyebrow reveal">Students</div>
-    <h2 class="reveal">In their words.</h2>
-    <div class="split" style="grid-template-columns:1fr 1fr">
-      <div class="quote reveal" style="--d:0.0s">[ Testimonial — one specific change, one sentence long. ]<footer>[ First name ] · [ City ]</footer></div>
-      <div class="quote reveal" style="--d:0.12s">[ Testimonial — keep it plain and believable. ]<footer>[ First name ] · [ City ]</footer></div>
+    <div class="eyebrow reveal">The gap</div>
+    <h2 class="reveal">Where you are.<br>Where you'll be.</h2>
+    <div class="placeholder reveal">[ DRAFT COPY — rewritten, still not Matt's words. Needs his sign-off before launch. ]</div>
+    <div class="split">
+      <div class="half reveal" style="--d:0.0s"><h3>Right now</h3><ul>
+        <li>Consuming content instead of taking action</li><li>Guessing at what you're doing wrong</li>
+        <li>Waiting for the "right" moment</li><li>Progress that stalls after one good night</li>
+      </ul></div>
+      <div class="half b reveal" style="--d:0.12s"><h3>With coaching</h3><ul>
+        <li>Taking action every single week</li><li>Direct feedback on your real interactions</li>
+        <li>Your sticking points named and worked on</li><li>A process you can keep running on your own</li>
+      </ul></div>
     </div>
   </section>
-</div>
-
-<div class="big-cta" id="apply">
-  <div class="wrap">
-    <div class="eyebrow reveal" style="text-align:center">Apply</div>
-    <h2 class="reveal">Book a strategy session call.</h2>
-    <p class="booking-intro reveal">Please select a time and answer all questions on the following page to apply for a Strategy Session Call. On the call, we will discuss your current situation when it comes to dating and meeting women, your goals for this area of your life, and your eligibility to work directly with Matt Jameson. If your application for the call is accepted, you will receive a Zoom link either via email or Instagram a few minutes before the starting time, which you can use to join the call.</p>
-    <div class="reveal" style="text-align:center">
-      <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Book your call</a>
-      <a href="https://www.instagram.com/advicefrommatt" target="_blank" rel="noopener noreferrer" class="ig-round" aria-label="Matt Jameson on Instagram"><svg class="ico" aria-hidden="true"><use href="#ig"/></svg></a>
-    </div>
-  </div>
 </div>
 
 <div class="wrap"><footer class="site">
