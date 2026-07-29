@@ -10,14 +10,19 @@
 <style>
 :root{--bg:#000;--fg:#fff;--acc:#F5A524;--mut:#7B7B7B;--pnl:#0D0D0D}
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:var(--bg);color:var(--fg);font-family:Archivo,sans-serif;overflow-x:hidden}
+/* overflow-x:clip, not hidden: `hidden` would make body a scroll container,
+   which breaks the view()/scroll() timelines below. `clip` clips without that. */
+body{background:var(--bg);color:var(--fg);font-family:Archivo,sans-serif;overflow-x:clip}
 .wrap{width:100%;max-width:1240px;margin:0 auto;padding:0 26px}
 nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0}
 .logo{font-weight:900;font-size:19px;letter-spacing:-.02em}
 .pill{display:inline-block;background:var(--acc);color:#000;padding:12px 24px;border-radius:100px;text-decoration:none;font-weight:700;font-size:13px;text-transform:uppercase;letter-spacing:.06em}
 .pill:hover{filter:brightness(1.12)}
 .pill.out{background:none;color:var(--acc);border:1px solid #2A2A2A}
-.hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:hidden;padding:70px 0}
+/* overflow:clip rather than hidden — see body. `hidden` here made the hero its
+   own scroll container, so its children's view() timeline resolved against a box
+   that never scrolls and the exit drift never ran. */
+.hero{position:relative;min-height:84vh;display:flex;align-items:center;overflow:clip;padding:70px 0}
 .hero::before{content:"";position:absolute;inset:0;background:radial-gradient(120% 90% at 70% 40%,#1C1C1C 0%,#000 70%);z-index:-1}
 h1{font-size:clamp(40px,7.6vw,104px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-.045em;max-width:15ch}
 h1 em{font-style:normal;color:var(--acc)}
@@ -56,22 +61,112 @@ footer.site a:hover{color:var(--acc)}
 .foot-links .ico{width:17px;height:17px}
 @media(max-width:900px){.split,.cards{grid-template-columns:1fr}.stats{grid-template-columns:1fr 1fr}section{padding:66px 0}footer.site{flex-direction:column;gap:10px}}
 
-/* --- scroll reveal ---------------------------------------------------------- */
+/* --- motion -----------------------------------------------------------------
+   Two layers. Entrances run off the existing IntersectionObserver (.reveal ->
+   .reveal.in). Continuous scroll-linked effects use native CSS scroll timelines
+   and add no JS. Every hiding rule is prefixed .js so a no-JS page is fully
+   readable. ------------------------------------------------------------------------- */
+
+/* layer 1 — entrances */
 .js .reveal{opacity:0;transform:translateY(24px)}
 .js .reveal.in{opacity:1;transform:none;
   transition:opacity .75s cubic-bezier(.22,.7,.3,1) var(--d,0s),transform .75s cubic-bezier(.22,.7,.3,1) var(--d,0s)}
+
+/* Headings wipe in from the left. The clip goes on an inner <span>, never on the
+   observed element itself: a clip-path of inset(0 100% 0 0) leaves zero visible
+   area, which makes the element's intersection rect empty so IntersectionObserver
+   never fires and the heading stays hidden forever. End inset is -2px, not 0, so
+   the clip can never shave a glyph edge. */
+.js .reveal.wipe>span{display:inline-block;clip-path:inset(0 100% 0 0);transform:translateY(10px)}
+.js .reveal.wipe.in>span{clip-path:inset(0 -2px 0 0);transform:none;
+  transition:transform .7s cubic-bezier(.22,.7,.3,1) var(--d,0s),
+             clip-path .95s cubic-bezier(.22,.7,.3,1) var(--d,0s)}
+
+/* stats — amber rule grows across the foot of each box */
+.stat{position:relative;overflow:hidden}
+.stat::after{content:"";position:absolute;left:26px;right:26px;bottom:0;height:2px;
+  background:var(--acc);transform:scaleX(0);transform-origin:0 50%}
+.js .stat.in::after{transform:scaleX(1);transition:transform .85s cubic-bezier(.22,.7,.3,1) calc(var(--d,0s) + .18s)}
+
+/* programs — cards land rather than just fade */
+.js .card.reveal{transform:translateY(28px) scale(.97)}
+
+/* The gap. .split is the observed element (unclipped, so the observer fires);
+   the amber panel's wipe and both lists' staggers hang off .split.in. Clipping
+   .half.b directly would zero its intersection area and it would never reveal. */
+.js .split .half li{opacity:0;transform:translateX(-10px)}
+.js .split.in .half li{opacity:1;transform:none;
+  transition:opacity .55s ease var(--li,0s),transform .55s cubic-bezier(.22,.7,.3,1) var(--li,0s)}
+.js .split .half li:nth-child(1){--li:.10s}
+.js .split .half li:nth-child(2){--li:.20s}
+.js .split .half li:nth-child(3){--li:.30s}
+.js .split .half li:nth-child(4){--li:.40s}
+.js .split .half.b li:nth-child(1){--li:.45s}
+.js .split .half.b li:nth-child(2){--li:.55s}
+.js .split .half.b li:nth-child(3){--li:.65s}
+.js .split .half.b li:nth-child(4){--li:.75s}
+.js .split .half.b{clip-path:inset(0 100% 0 0)}
+.js .split.in .half.b{clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.22,.7,.3,1) .1s}
+
+/* hero load-in */
 .hero h1,.hero .sub,.hero .hero-lede,.hero .pill{animation:rise .9s cubic-bezier(.22,.7,.3,1) both}
 .hero .sub{animation-delay:.1s}
 .hero .hero-lede{animation-delay:.2s}
 .hero .pill{animation-delay:.3s}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
+
+/* scroll progress bar. Base state is scaleX(0), so where scroll timelines are
+   unsupported it stays invisible rather than sitting stuck at full width. */
+.progress{position:fixed;top:0;left:0;z-index:60;height:2px;width:100%;
+  background:var(--acc);transform:scaleX(0);transform-origin:0 50%}
+@keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+/* layer 2 — continuous, scroll-linked. `drift` declares only a `to` keyframe so
+   its implicit `from` is whatever `rise` settled on; being later in the
+   animation list it wins on transform/opacity while it has an effect. Each
+   element drifts a different distance (--dy) to read as depth. */
+@keyframes drift{to{transform:translateY(var(--dy,-40px));opacity:0}}
+@supports (animation-timeline:view()){
+  /* Longhands rather than the `animation` shorthand: the shorthand resets
+     animation-timeline, and spelling the list out keeps the per-animation
+     timeline/range pairing unambiguous. */
+  .progress{animation-name:prog;animation-duration:auto;animation-timing-function:linear;
+    animation-fill-mode:both;animation-timeline:scroll(root block)}
+  .hero h1,.hero .sub,.hero .hero-lede{
+    animation-name:rise,drift;
+    animation-duration:.9s,auto;
+    animation-timing-function:cubic-bezier(.22,.7,.3,1),linear;
+    animation-fill-mode:both,both;
+    animation-timeline:auto,view();
+    animation-range:normal,exit 0% exit 100%}
+  .hero .sub{animation-delay:.1s,0s}
+  .hero .hero-lede{animation-delay:.2s,0s}
+  .hero .hero-cta{animation-name:drift;animation-duration:auto;
+    animation-timing-function:linear;animation-fill-mode:both;
+    animation-timeline:view();animation-range:exit 0% exit 100%}
+  .hero h1{--dy:-34px}
+  .hero .sub{--dy:-52px}
+  .hero .hero-lede{--dy:-70px}
+  .hero .hero-cta{--dy:-88px}
+}
+
+/* Reduced motion: reset every property the rules above touch, so the page
+   renders complete and static. `animation:none` also disables the scroll
+   timelines. */
 @media(prefers-reduced-motion:reduce){
   .js .reveal,.js .reveal.in{opacity:1;transform:none;transition:none}
-  .hero h1,.hero .sub,.hero .hero-lede,.hero .pill{animation:none}
+  .js .reveal.wipe>span,.js .reveal.wipe.in>span,
+  .js .split .half.b,.js .split.in .half.b{transform:none;transition:none;clip-path:none}
+  .js .split .half li,.js .split.in .half li{opacity:1;transform:none;transition:none}
+  .stat::after,.js .stat.in::after{transform:scaleX(1);transition:none}
+  .hero h1,.hero .sub,.hero .hero-lede,.hero .pill,.hero .hero-cta{animation:none}
+  .progress{display:none}
 }
 </style>
 </head>
 <body>
+
+<div class="progress" aria-hidden="true"></div>
 
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <symbol id="ig" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round">
@@ -109,8 +204,8 @@ footer.site a:hover{color:var(--acc)}
   </section>
 
   <section id="programs">
-    <div class="eyebrow reveal">Programs</div>
-    <h2 class="reveal">Pick your intensity.</h2>
+    <div class="eyebrow reveal wipe"><span>Programs</span></div>
+    <h2 class="reveal wipe"><span>Pick your intensity.</span></h2>
     <div class="cards">
       <div class="card lead reveal" style="--d:0.0s">
         <div class="tag">Flagship · 3 days · in person</div><h3>Bootcamp with Matt</h3>
@@ -134,15 +229,15 @@ footer.site a:hover{color:var(--acc)}
   </section>
 
   <section>
-    <div class="eyebrow reveal">The gap</div>
-    <h2 class="reveal">Where you are.<br>Where you'll be.</h2>
+    <div class="eyebrow reveal wipe"><span>The gap</span></div>
+    <h2 class="reveal wipe"><span>Where you are.<br>Where you'll be.</span></h2>
     <div class="placeholder reveal">[ DRAFT COPY — rewritten, still not Matt's words. Needs his sign-off before launch. ]</div>
-    <div class="split">
-      <div class="half reveal" style="--d:0.0s"><h3>Right now</h3><ul>
+    <div class="split reveal">
+      <div class="half"><h3>Right now</h3><ul>
         <li>Consuming content instead of taking action</li><li>Guessing at what you're doing wrong</li>
         <li>Waiting for the "right" moment</li><li>Progress that stalls after one good night</li>
       </ul></div>
-      <div class="half b reveal" style="--d:0.12s"><h3>With coaching</h3><ul>
+      <div class="half b"><h3>With coaching</h3><ul>
         <li>Taking action every single week</li><li>Direct feedback on your real interactions</li>
         <li>Your sticking points named and worked on</li><li>A process you can keep running on your own</li>
       </ul></div>
@@ -164,15 +259,34 @@ footer.site a:hover{color:var(--acc)}
     document.querySelectorAll('.num').forEach(function(n){n.textContent=n.dataset.num});
     return;
   }
+  function show(e){
+    if(e.classList.contains('in'))return;
+    e.classList.add('in');
+    [].forEach.call(e.querySelectorAll('.num'),count);
+  }
   var io=new IntersectionObserver(function(es){
     es.forEach(function(e){
       if(!e.isIntersecting)return;
       io.unobserve(e.target);
-      e.target.classList.add('in');
-      e.target.querySelectorAll?e.target.querySelectorAll('.num').forEach(count):0;
+      show(e.target);
     });
   },{threshold:.18,rootMargin:'0px 0px -8% 0px'});
   els.forEach(function(e){io.observe(e)});
+
+  /* An element the page has already scrolled past on load — a deep link like
+     /matt#programs, an in-page jump, or a reload that restored scroll position
+     — never triggers an intersection, so without this it would stay at
+     opacity:0 permanently. Sweep anything that starts above the viewport top:
+     fully past, or straddling the edge with too little showing to ever meet the
+     observer's threshold. Elements fully on screen are left to the observer so
+     they keep their stagger. */
+  function sweep(){
+    els.forEach(function(e){
+      if(e.getBoundingClientRect().top<0){io.unobserve(e);show(e)}
+    });
+  }
+  sweep();
+  window.addEventListener('load',sweep);
 
   function count(el){
     var raw=el.dataset.num||el.textContent;
