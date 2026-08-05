@@ -27,8 +27,22 @@ nav{display:flex;justify-content:space-between;align-items:center;padding:22px 0
 h1{font-size:clamp(40px,7.6vw,104px);font-weight:900;line-height:.9;text-transform:uppercase;letter-spacing:-.045em;max-width:15ch}
 h1 em{font-style:normal;color:var(--acc)}
 .sub{font-size:clamp(19px,2.3vw,27px);font-weight:700;color:var(--fg);letter-spacing:-.015em;margin:28px 0 0}
-.hero-lede{color:var(--mut);font-size:17px;line-height:1.7;max-width:680px;margin:24px 0 36px}
+/* #D9D9D9, not var(--mut): the muted grey failed to read against black at this
+   size. ~11:1 on the hero's gradient, still visibly secondary to the sub. */
+.hero-lede{color:#D9D9D9;font-size:17px;line-height:1.7;max-width:680px;margin:24px 0 36px}
+.hero-lede p+p{margin-top:16px}
 .hero-cta{display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+/* two-column hero: copy left, image right. h1 is stepped down from its
+   full-width scale so it still fits a ~half-width column. */
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:56px;align-items:center}
+.hero-copy h1{font-size:clamp(34px,4.4vw,62px);max-width:18ch}
+.hero-shot{margin:0}
+.hero-shot img{display:block;width:100%;height:auto;border-radius:6px}
+@media(max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:36px}
+  .hero-copy h1{font-size:clamp(40px,7.6vw,104px);max-width:15ch}
+  .hero-shot img{max-width:460px}
+}
 section{padding:110px 0}
 .eyebrow{color:var(--acc);font-weight:700;font-size:12px;text-transform:uppercase;letter-spacing:.2em;margin-bottom:20px}
 h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-height:.92;letter-spacing:-.035em;margin-bottom:26px}
@@ -43,15 +57,32 @@ h2{font-size:clamp(34px,5vw,64px);font-weight:900;text-transform:uppercase;line-
 .stat{background:var(--pnl);padding:40px 26px}
 .num{font-size:52px;font-weight:900;color:var(--acc);letter-spacing:-.04em}
 .lbl{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--mut);margin-top:8px}
-.cards{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2px;margin-top:44px}
-.card{background:var(--pnl);padding:40px 34px;display:flex;flex-direction:column}
-.card.lead{background:linear-gradient(160deg,#1F1A0D,#0D0D0D);border:1px solid #2B2314}
+/* Equal columns and one shared treatment: the three options are presented as
+   peers, so nothing about the bootcamp card should out-shout the other two. */
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:44px}
+.card{background:linear-gradient(160deg,#1F1A0D,#0D0D0D);border:1px solid #2B2314;padding:40px 34px;display:flex;flex-direction:column}
 .card h3{font-size:26px;font-weight:900;text-transform:uppercase;margin-bottom:14px}
 .card p{color:var(--mut);font-size:15px;line-height:1.65;flex:1;margin-bottom:22px}
 .card .note{color:#4C4C4C;font-size:13px;line-height:1.6;margin-bottom:24px}
 .card .tag{font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--acc);margin-bottom:18px}
 .card .pill{align-self:flex-start}
-.placeholder{border:1px dashed #262626;padding:20px 24px;color:#4C4C4C;font-size:13px;font-style:italic;max-width:760px}
+/* photo bands. Every source shot is 4:5 portrait, so the single band is a
+   centred column rather than a full-width strip — a 16:9 crop would cut both
+   people out of the frame. Capped at the source's own width so it never
+   upscales past its 702px original. */
+.band{max-width:520px;margin:44px auto 0}
+.band img{display:block;width:100%;height:auto;border-radius:6px}
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;margin-top:2px}
+.trio figure{margin:0}
+.trio img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover}
+
+.quote{max-width:940px;margin:0 auto;text-align:center;font-size:clamp(21px,3vw,36px);
+  font-weight:900;line-height:1.22;letter-spacing:-.03em;text-wrap:balance}
+.quote .qm{color:var(--acc)}
+.closing{text-align:center;padding-bottom:110px}
+.closing h2{margin-bottom:0}
+.closing .pill{margin-top:32px}
+@media(max-width:900px){.trio{grid-template-columns:1fr}.closing{padding-bottom:66px}}
 .ico{width:18px;height:18px;flex:none;display:block}
 footer.site{border-top:1px solid #1A1A1A;padding:30px 0;color:#3A3A3A;font-size:13px;display:flex;justify-content:space-between}
 footer.site a{color:var(--mut);text-decoration:none}
@@ -101,18 +132,21 @@ footer.site a:hover{color:var(--acc)}
 .js .split .half li:nth-child(2){--li:.20s}
 .js .split .half li:nth-child(3){--li:.30s}
 .js .split .half li:nth-child(4){--li:.40s}
-.js .split .half.b li:nth-child(1){--li:.45s}
-.js .split .half.b li:nth-child(2){--li:.55s}
-.js .split .half.b li:nth-child(3){--li:.65s}
-.js .split .half.b li:nth-child(4){--li:.75s}
+.js .split .half li:nth-child(5){--li:.50s}
+.js .split .half.b li:nth-child(1){--li:.55s}
+.js .split .half.b li:nth-child(2){--li:.65s}
+.js .split .half.b li:nth-child(3){--li:.75s}
+.js .split .half.b li:nth-child(4){--li:.85s}
+.js .split .half.b li:nth-child(5){--li:.95s}
 .js .split .half.b{clip-path:inset(0 100% 0 0)}
 .js .split.in .half.b{clip-path:inset(0 0 0 0);transition:clip-path 1s cubic-bezier(.22,.7,.3,1) .1s}
 
 /* hero load-in */
-.hero h1,.hero .sub,.hero .hero-lede,.hero .pill{animation:rise .9s cubic-bezier(.22,.7,.3,1) both}
+.hero h1,.hero .sub,.hero .hero-lede,.hero .pill,.hero .hero-shot{animation:rise .9s cubic-bezier(.22,.7,.3,1) both}
 .hero .sub{animation-delay:.1s}
 .hero .hero-lede{animation-delay:.2s}
 .hero .pill{animation-delay:.3s}
+.hero .hero-shot{animation-delay:.25s}
 @keyframes rise{from{opacity:0;transform:translateY(26px)}to{opacity:1;transform:none}}
 
 /* scroll progress bar. Base state is scaleX(0), so where scroll timelines are
@@ -132,7 +166,7 @@ footer.site a:hover{color:var(--acc)}
      timeline/range pairing unambiguous. */
   .progress{animation-name:prog;animation-duration:auto;animation-timing-function:linear;
     animation-fill-mode:both;animation-timeline:scroll(root block)}
-  .hero h1,.hero .sub,.hero .hero-lede{
+  .hero h1,.hero .sub,.hero .hero-lede,.hero .hero-shot{
     animation-name:rise,drift;
     animation-duration:.9s,auto;
     animation-timing-function:cubic-bezier(.22,.7,.3,1),linear;
@@ -141,6 +175,7 @@ footer.site a:hover{color:var(--acc)}
     animation-range:normal,exit 0% exit 100%}
   .hero .sub{animation-delay:.1s,0s}
   .hero .hero-lede{animation-delay:.2s,0s}
+  .hero .hero-shot{animation-delay:.25s,0s}
   .hero .hero-cta{animation-name:drift;animation-duration:auto;
     animation-timing-function:linear;animation-fill-mode:both;
     animation-timeline:view();animation-range:exit 0% exit 100%}
@@ -148,6 +183,7 @@ footer.site a:hover{color:var(--acc)}
   .hero .sub{--dy:-52px}
   .hero .hero-lede{--dy:-70px}
   .hero .hero-cta{--dy:-88px}
+  .hero .hero-shot{--dy:-18px}
 }
 
 /* Reduced motion: reset every property the rules above touch, so the page
@@ -159,7 +195,7 @@ footer.site a:hover{color:var(--acc)}
   .js .split .half.b,.js .split.in .half.b{transform:none;transition:none;clip-path:none}
   .js .split .half li,.js .split.in .half li{opacity:1;transform:none;transition:none}
   .stat::after,.js .stat.in::after{transform:scaleX(1);transition:none}
-  .hero h1,.hero .sub,.hero .hero-lede,.hero .pill,.hero .hero-cta{animation:none}
+  .hero h1,.hero .sub,.hero .hero-lede,.hero .pill,.hero .hero-cta,.hero .hero-shot{animation:none}
   .progress{display:none}
 }
 </style>
@@ -182,66 +218,100 @@ footer.site a:hover{color:var(--acc)}
   </nav>
 </div>
 
-<div class="hero"><div class="wrap">
-  <h1>Are you ready to improve your <em>results with women?</em></h1>
-  <p class="sub">Coaching with Matt Jameson</p>
-  <p class="hero-lede">For over 7 years as a Men's Dating Coach, I'm proud to have helped men all over the world improve their results with women and achieve their dream dating lives. Men just like you. With a combination of both live in-person coaching and remote online coaching, I've helped men in all different parts of the world, including Europe, the United States, Australia, Latin America, Asia, South Africa and more. If you're ready to stop wasting time and start taking action to reach your goals with women and dating, professional coaching could be the next step to help you get there.</p>
-  <div class="hero-cta">
-    <a href="#programs" class="pill">Learn more</a>
+<div class="hero"><div class="wrap hero-grid">
+  <div class="hero-copy">
+    <h1>Are you ready to improve your <em>results with women?</em></h1>
+    <p class="sub">Coaching with Matt Jameson</p>
+    <div class="hero-lede">
+      <p>For over 7 years as a Men's Dating Coach, I'm proud to have helped men all over the world transform their results with women and achieve their dream dating lives. Men just like you. With a combination of both live in-person coaching and remote online coaching, I've worked with clients across Europe, the United States, Australia, Latin America, Asia, South Africa and more.</p>
+      <p>If you're ready to start taking action and make real progress towards your goals with women and dating, professional coaching could be the next step to help you get there.</p>
+    </div>
+    <div class="hero-cta">
+      <a href="#programs" class="pill">Learn more</a>
+    </div>
   </div>
+  <figure class="hero-shot">
+    <img src="matt-coaching.webp" width="1200" height="1499" decoding="async"
+         alt="Matt talking and laughing with two women on a tree-lined street, shopping bags in hand.">
+  </figure>
 </div></div>
 
 <div class="wrap">
   <section id="about" style="padding-bottom:0">
-    <!-- PROVISIONAL FIGURES — invented for layout only. Must be replaced with
-         Matt's real numbers before this page is shown to prospects. -->
+    <!-- Matt's own figures, confirmed in his revision notes. -->
     <div class="stats">
       <div class="stat reveal" style="--d:0.0s"><div class="num" data-num="7+">7+</div><div class="lbl">Years</div></div>
-      <div class="stat reveal" style="--d:0.09s"><div class="num" data-num="350+">350+</div><div class="lbl">Students coached</div></div>
-      <div class="stat reveal" style="--d:0.18s"><div class="num" data-num="19">19</div><div class="lbl">Countries</div></div>
-      <div class="stat reveal" style="--d:0.27s"><div class="num" data-num="42">42</div><div class="lbl">Cities</div></div>
+      <div class="stat reveal" style="--d:0.09s"><div class="num" data-num="32+">32+</div><div class="lbl">Countries</div></div>
+      <div class="stat reveal" style="--d:0.18s"><div class="num" data-num="67+">67+</div><div class="lbl">Cities</div></div>
+      <div class="stat reveal" style="--d:0.27s"><div class="num" data-num="500+">500+</div><div class="lbl">Students</div></div>
     </div>
   </section>
 
   <section id="programs">
     <div class="eyebrow reveal wipe"><span>Programs</span></div>
-    <h2 class="reveal wipe"><span>Pick your intensity.</span></h2>
+    <h2 class="reveal wipe"><span>Choose your preference.</span></h2>
     <div class="cards">
-      <div class="card lead reveal" style="--d:0.0s">
-        <div class="tag">Flagship · 3 days · in person</div><h3>Bootcamp with Matt</h3>
-        <p>An intense, 3-day live in-person training designed to get you taking massive amounts of action with direct in-person feedback from Matt himself. Limited to a small number of students per program — the ultimate no-BS program to level up your game and destroy your sticking points.</p>
-        <div class="note">Enquire now to learn more about upcoming bootcamp programs in a city near you.</div>
-        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Enquire now</a>
+      <div class="card reveal" style="--d:0.0s">
+        <div class="tag">3 days · in person</div><h3>Bootcamp with Matt</h3>
+        <p>An intense 3-day live in-person training designed to get you taking massive amounts of action with direct in-person feedback from Matt himself. Limited to a small number of students per program — this is the ultimate no-BS option to level up your game and destroy your sticking points.</p>
+        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Learn more</a>
       </div>
       <div class="card reveal" style="--d:0.09s">
-        <div class="tag">Custom · in person</div><h3>1-on-1 Live</h3>
-        <p>Want to work live in person 1-on-1 with Matt right by your side? Custom packages for those who want the absolute most amount of direct attention and feedback. Subject to availability.</p>
-        <div class="note">Apply for custom 1-on-1 coaching.</div>
-        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill out">Apply now</a>
+        <div class="tag">Custom · in person</div><h3>1-on-1 Live Coaching</h3>
+        <p>Want to work live in person 1-on-1 with Matt right by your side? Custom packages for those who want the absolute most amount of direct attention and feedback.</p>
+        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Learn more</a>
       </div>
       <div class="card reveal" style="--d:0.18s">
-        <div class="tag">Ongoing · remote</div><h3>Online</h3>
-        <p>Ongoing accountability, support and feedback week by week. By analyzing your interactions, text conversations and dates, you get tailored missions every week — the guessing game removed entirely.</p>
-        <div class="note">Subject to availability.</div>
-        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill out">Apply now</a>
+        <div class="tag">Ongoing · remote</div><h3>Online Coaching</h3>
+        <p>Ongoing accountability, support and feedback week by week. By analyzing your interactions, text conversations and dates, you'll get specific tailored missions every single week so that you'll know exactly what to focus on.</p>
+        <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill">Learn more</a>
       </div>
     </div>
+
+    <figure class="band reveal">
+      <img src="matt-programs.webp" width="702" height="877" loading="lazy" decoding="async"
+           alt="Matt swapping numbers with a woman on a busy street, both looking at her phone.">
+    </figure>
   </section>
 
   <section>
     <div class="eyebrow reveal wipe"><span>The gap</span></div>
     <h2 class="reveal wipe"><span>Where you are.<br>Where you'll be.</span></h2>
-    <div class="placeholder reveal">[ DRAFT COPY — rewritten, still not Matt's words. Needs his sign-off before launch. ]</div>
     <div class="split reveal">
       <div class="half"><h3>Right now</h3><ul>
-        <li>Consuming content instead of taking action</li><li>Guessing at what you're doing wrong</li>
-        <li>Waiting for the "right" moment</li><li>Progress that stalls after one good night</li>
+        <li>Consuming too much content</li>
+        <li>Not taking enough action</li>
+        <li>Anxiety and anxiousness holding you back</li>
+        <li>No clue about what to focus on</li>
+        <li>Inconsistent results with no clear plan</li>
       </ul></div>
       <div class="half b"><h3>With coaching</h3><ul>
-        <li>Taking action every single week</li><li>Direct feedback on your real interactions</li>
-        <li>Your sticking points named and worked on</li><li>A process you can keep running on your own</li>
+        <li>Taking action every week</li>
+        <li>Direct feedback on your real interactions</li>
+        <li>A clear plan for exactly what to work on</li>
+        <li>Predictable results from proven strategies</li>
+        <li>Less time spent struggling, more time spent succeeding</li>
       </ul></div>
     </div>
+
+    <!-- One interaction in three beats, left to right: opening, numbers, goodbye. -->
+    <div class="trio reveal">
+      <figure><img src="matt-gap-1.webp" width="735" height="919" loading="lazy" decoding="async"
+        alt="Matt talking with a woman who has stopped on the sidewalk."></figure>
+      <figure><img src="matt-gap-2.webp" width="702" height="877" loading="lazy" decoding="async"
+        alt="Matt handing his phone over to the same woman to take her number."></figure>
+      <figure><img src="matt-gap-3.webp" width="674" height="842" loading="lazy" decoding="async"
+        alt="Matt and the same woman hugging goodbye at a crossing."></figure>
+    </div>
+  </section>
+
+  <section style="padding-top:0">
+    <p class="quote reveal"><span class="qm">&ldquo;</span>You can either spend years trying to figure it out on your own, or you can learn from a professional<span class="qm">&rdquo;</span></p>
+  </section>
+
+  <section class="closing" style="padding-top:0">
+    <h2 class="reveal wipe"><span>Ready to get started?</span></h2>
+    <a href="https://calendly.com/mattjamesoncoach/strategy" target="_blank" rel="noopener noreferrer" class="pill reveal">Learn more</a>
   </section>
 </div>
 
