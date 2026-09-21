@@ -1,10 +1,30 @@
 {
   "redirects": [
-    { "source": "/leon", "destination": "/leon/" },
-    { "source": "/matt", "destination": "/matt/" }
+    {
+      "source": "/leon",
+      "destination": "/leon/"
+    },
+    {
+      "source": "/matt",
+      "destination": "/matt/"
+    },
+    {
+      "source": "/matt/apply",
+      "destination": "/matt/apply/"
+    }
   ],
   "rewrites": [
-    { "source": "/leon/", "destination": "/leon/index.html" },
-    { "source": "/matt/", "destination": "/matt/index.html" }
+    {
+      "source": "/leon/",
+      "destination": "/leon/index.html"
+    },
+    {
+      "source": "/matt/",
+      "destination": "/matt/index.html"
+    },
+    {
+      "source": "/matt/apply/",
+      "destination": "/matt/apply/index.html"
+    }
   ]
 }
