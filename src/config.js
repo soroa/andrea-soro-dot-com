@@ -33,3 +33,27 @@ export const PRIVATE_SLOTS = [
   { id: 's09', date: '2026-03-20', time: '19:00', duration: 60 },
   { id: 's10', date: '2026-03-20', time: '20:00', duration: 60 },
 ];
+
+// Portfolio pieces shown on /code. Order here is the order on the page.
+export const PROJECTS = [
+  {
+    id: '01',
+    name: 'Solenn',
+    domain: 'solenn.ch',
+    url: 'https://solenn.ch/',
+    role: 'Full build · design to deploy',
+    blurb: 'Swiss scented-textiles brand. Storefront, scent finder, checkout.',
+    stack: 'Next.js · React · Tailwind',
+    shot: '/portfolio/solenn.webp',
+  },
+  {
+    id: '02',
+    name: 'Matt Jameson Coach',
+    domain: 'mattjamesoncoach.com',
+    url: 'https://www.mattjamesoncoach.com/',
+    role: 'Design + build',
+    blurb: 'Landing page and application funnel for a dating coach.',
+    stack: 'HTML · CSS · JavaScript',
+    shot: '/portfolio/matt.webp',
+  },
+];

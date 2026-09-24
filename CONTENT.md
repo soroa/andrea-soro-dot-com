@@ -25,6 +25,20 @@ https://www.beekeeper.io/
 https://github.com/soroa
 
 
+## Portfolio (shown on /code)
+
+Each row becomes a card in the SELECTED WORK section. Screenshots live in
+`public/portfolio/`. Tell me when you change a row and I'll sync `src/config.js`.
+
+| # | Name | Domain | Role | Stack | Blurb |
+|---|------|--------|------|-------|-------|
+| 01 | Solenn | solenn.ch | Full build · design to deploy | Next.js · React · Tailwind | Swiss scented-textiles brand. Storefront, scent finder, checkout. |
+| 02 | Matt Jameson Coach | mattjamesoncoach.com | Design + build | HTML · CSS · JavaScript | Landing page and application funnel for a dating coach. |
+
+Not listed: the Leon Marenbach portfolio at `/leon`. It is password-protected,
+so it stays off the public page.
+
+
 # Dance Section
 
 This file is the source of truth for all stats and workshops shown on the website.

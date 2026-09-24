@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Github, Linkedin, Mail, BookOpen, ArrowRight } from 'lucide-react';
-import { CONFIG } from '../config';
+import { Github, Linkedin, Mail, BookOpen, ArrowRight, ArrowUpRight } from 'lucide-react';
+import { CONFIG, PROJECTS } from '../config';
 
 const STACK = [
   { cat: 'LANGUAGE',   items: 'Kotlin' },
@@ -67,6 +67,57 @@ function RevealLeft({ children, delay = 0, className = '' }) {
 const Cursor = () => (
   <span className="inline-block w-2 h-[1.1em] bg-green-500 ml-1 align-middle animate-blink" />
 );
+
+// Window-framed screenshot + meta row. One per portfolio piece.
+function ProjectCard({ project }) {
+  return (
+    <a
+      href={project.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="group block"
+    >
+      <div className="border border-[#1f1f1f] rounded-sm overflow-hidden transition-colors duration-300 group-hover:border-green-900/70">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-[#1a1a1a] bg-[#111]">
+          <div className="w-3 h-3 rounded-full" style={{ background: '#ff5f57' }} />
+          <div className="w-3 h-3 rounded-full" style={{ background: '#febc2e' }} />
+          <div className="w-3 h-3 rounded-full" style={{ background: '#28c840' }} />
+          <span className="ml-4 text-xs truncate" style={{ color: '#555' }}>{project.domain}</span>
+        </div>
+        <div className="bg-[#0f0f0f] overflow-hidden" style={{ aspectRatio: '16 / 9' }}>
+          <img
+            src={project.shot}
+            alt={`Screenshot of ${project.name}`}
+            loading="lazy"
+            width="1200"
+            height="675"
+            className="w-full h-full object-cover object-top transition-transform duration-500 ease-out group-hover:scale-[1.02]"
+          />
+        </div>
+      </div>
+
+      {/* Stacks on mobile; the 130px index gutter only appears from md up,
+          where it lines up with the TECH STACK rows. */}
+      <div className="pt-5 md:grid md:items-start md:gap-6 md:grid-cols-[130px_1fr]">
+        <span className="block mb-2 md:mb-0 text-xs tracking-widest" style={{ color: '#22c55e' }}>{project.id}</span>
+        <div>
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <h3 className="text-sm font-bold text-white tracking-wide uppercase transition-colors group-hover:text-green-500">
+              {project.name}
+            </h3>
+            <span className="inline-flex items-center gap-1 text-xs" style={{ color: '#22c55e' }}>
+              visit() <ArrowUpRight size={11} />
+            </span>
+          </div>
+          <p className="text-sm mt-2" style={{ color: '#888' }}>{project.blurb}</p>
+          <p className="text-xs mt-2" style={{ color: '#555' }}>
+            {project.role} <span style={{ color: '#333' }}>·</span> {project.stack}
+          </p>
+        </div>
+      </div>
+    </a>
+  );
+}
 
 // ── Page ──────────────────────────────────────────────────────────────────
 
@@ -225,6 +276,31 @@ export default function CoderPage() {
                   )}
                 </div>
               </RevealLeft>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── SELECTED WORK ── */}
+      <section className="py-20 border-t border-[#1a1a1a]">
+        <div className="max-w-5xl mx-auto px-6">
+          <Reveal className="mb-10">
+            <div className="text-sm mb-3">
+              <span style={{ color: '#22c55e' }}>$ </span>
+              <span style={{ color: '#888' }}>ls -la projects/</span>
+            </div>
+            <h2 className="text-2xl font-bold text-white tracking-tighter">SELECTED WORK</h2>
+            <div className="h-px w-10 bg-green-500 mt-3" />
+            <p className="text-sm mt-5 max-w-xl" style={{ color: '#555' }}>
+              Sites I design and ship end to end, outside the day job.
+            </p>
+          </Reveal>
+
+          <div className="space-y-16">
+            {PROJECTS.map((project, i) => (
+              <Reveal key={project.id} delay={i * 80}>
+                <ProjectCard project={project} />
+              </Reveal>
             ))}
           </div>
         </div>
