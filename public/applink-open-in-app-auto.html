@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Open in the app (auto-try test)</title>
+<style>
+body { font-family: sans-serif; margin: 0; padding: 32px 24px; text-align: center; }
+.open { display: block; margin: 24px auto 16px; padding: 16px; max-width: 320px;
+  background: #1a73e8; color: #fff; border-radius: 8px; font-size: 18px;
+  text-decoration: none; }
+.store { color: #1a73e8; }
+</style>
+</head>
+<body>
+<h1>Beeinvolved</h1>
+<a class="open" href="intent://mobile.lumapps.link/applinks/gategroup/beeinvolved?link=https%3A%2F%2Fgategroup.beekeeper.io%2Freset-password%3Fc%3Dapplink-test&amp;afl=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.gategroup.beeinvolved&amp;apn=com.gategroup.beeinvolved#Intent;scheme=https;package=com.gategroup.beeinvolved;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.gategroup.beeinvolved;end">Open in the Beeinvolved app</a>
+<p>Do not have the app yet?</p>
+<a class="store" href="https://play.google.com/store/apps/details?id=com.gategroup.beeinvolved">Get the app</a>
+<p id="status">Trying to open the app automatically...</p>
+<script>
+var btn = document.querySelector('a.open');
+document.getElementById('status').textContent = 'Auto-open tried on load. If nothing happened, tap the button.';
+setTimeout(function () { window.location.href = btn.href; }, 300);
+</script>
+</body>
+</html>
